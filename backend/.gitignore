@@ -1,2 +1,3 @@
 WorkoutTracker/db.sqlite3
 users.txt
+__pycache__
