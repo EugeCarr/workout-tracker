@@ -3,10 +3,30 @@ from rest_framework import generics, status
 from . import serializers, models
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .permissions import IsClient, IsTrainer
 
-class WorkoutPlanCreateList(generics.ListCreateAPIView):
+
+class CreateListMixin(object):
+    def create(self, request, *args, **kwargs):
+        isMany = isinstance(request.data, list)
+        serializer = self.get_serializer(data=request.data, many=isMany)
+        serializer.is_valid(raise_exception=True)
+        headers = self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+class ClientReadOnlyPermissionMixin(object):
+    def get_permissions(self, * args, **kwargs): 
+        method = self.request.method
+        if method == "GET":
+            self.permission_classes = [IsClient | IsTrainer | IsAdminUser, IsAuthenticated]
+            
+        else:
+            self.permission_classes = [IsTrainer | IsAdminUser, IsAuthenticated]
+        return[permission() for permission in self.permission_classes]
+
+class WorkoutPlanCreateList(ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.WorkoutPlanSerializer
     throttle_classes = [UserRateThrottle]
     
@@ -17,54 +37,53 @@ class WorkoutPlanCreateList(generics.ListCreateAPIView):
             return models.WorkoutPlan.objects.filter(client_id=user.id)
         else:
             return models.WorkoutPlan.objects.filter(trainer_id=user.id)
-
-    def get_permissions(self, * args, **kwargs): 
-        method = self.request.method
-        if method == "POST":
-            self.permission_classes = [IsTrainer, IsAuthenticated]
-        else:
-            self.permission_classes = [IsClient | IsTrainer, IsAuthenticated]
-        return[permission() for permission in self.permission_classes] 
-            
     
-    
-class WorkoutPlanManage(generics.RetrieveUpdateDestroyAPIView):
+class WorkoutPlanManage(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.WorkoutPlanSerializer
     throttle_classes = [UserRateThrottle]
     
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
         if user.groups.filter(name="Client").exists():
-            return models.WorkoutPlan.objects.select_related("session").filter(client_id=user.id)
+            return models.WorkoutPlan.objects.prefetch_related('sessions').filter(client_id=user.id)
         else:
-            return models.WorkoutPlan.objects.select_related("session").filter(trainer_id=user.id)
-
-    def get_permissions(self): 
-        method = self.request.method
-        if method in ["DELETE", "PUT"]:
-            self.permission_classes = [IsAuthenticated, IsTrainer,]
-        elif method == "GET":
-            self.permission_classes = [IsAuthenticated, IsClient | IsTrainer,]
-        
-        return[permission() for permission in self.permission_classes] 
+            return models.WorkoutPlan.objects.prefetch_related('sessions').filter(trainer_id=user.id)
     
-class SessionManage(generics.ListCreateAPIView):
+class SessionManage(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.SessionSerializer
     throttle_classes = [UserRateThrottle]
     
     def get_queryset(self):
         user = self.request.user
-        print([self.request, user])
         if user.groups.filter(name="Client").exists():
             return models.Session.objects.filter(workoutPlan__client_id=user.id)
         else:
             return models.Session.objects.filter(workoutPlan__trainer_id=user.id)
-
-    def get_permissions(self, * args, **kwargs): 
-        method = self.request.method
-        if method == "POST":
-            self.permission_classes = [IsTrainer, IsAuthenticated]
+    
+class SessionUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.SessionSerializer
+    throttle_classes = [UserRateThrottle]
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name="Client").exists():
+            return models.Session.objects.filter(workoutPlan__client_id=user.id)
         else:
-            self.permission_classes = [IsClient | IsTrainer, IsAuthenticated]
-        return[permission() for permission in self.permission_classes] 
-            
+            return models.Session.objects.filter(workoutPlan__trainer_id=user.id)
+    
+class ExerciseTypeCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
+    serializer_class = serializers.ExerciseTypeSerializer
+    throttle_classes = [UserRateThrottle]
+    queryset = models.ExerciseType.objects.all()
+    
+    
+class ExerciseCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
+    serializer_class = serializers.ExerciseSerializer
+    throttle_classes = [UserRateThrottle]
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name="Client").exists():
+            return models.Exercise.objects.filter(session__workoutPlan__client_id=user.id)
+        else:
+            return models.Exercise.objects.filter(session__workoutPlan__trainer_id=user.id)

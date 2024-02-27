@@ -11,7 +11,7 @@ class WorkoutPlan(models.Model):
         return "{}: {}".format(self.client.first_name, self.name)
     
 class Session(models.Model):
-    workoutPlan = models.ForeignKey(WorkoutPlan, on_delete=models.CASCADE)
+    workoutPlan = models.ForeignKey(WorkoutPlan, on_delete=models.CASCADE, related_name="sessions")
     name = models.CharField(max_length=255)
     plannedDate = models.DateField()
     completedDate = models.DateField(default=None, null=True)
