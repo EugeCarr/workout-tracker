@@ -87,3 +87,14 @@ class ExerciseCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generic
             return models.Exercise.objects.filter(session__workoutPlan__client_id=user.id)
         else:
             return models.Exercise.objects.filter(session__workoutPlan__trainer_id=user.id)
+        
+class ExerciseUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.ExerciseSerializer
+    throttle_classes = [UserRateThrottle]
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name="Client").exists():
+            return models.Exercise.objects.filter(session__workoutPlan__client_id=user.id)
+        else:
+            return models.Exercise.objects.filter(session__workoutPlan__trainer_id=user.id)

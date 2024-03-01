@@ -8,4 +8,5 @@ urlpatterns = [
     path(route='workout-plans/sessions/<int:pk>', view=views.SessionUpdateRetrieve.as_view(), name="sessions-edit"),
     path(route='exercise-types', view=views.ExerciseTypeCreateList.as_view(), name="exercise-type-list"),
     path(route='workout-plans/sessions/exercises', view=views.ExerciseCreateList.as_view(), name="exercises-list"),
+    path(route='workout-plans/sessions/exercises/<int:pk>', view=views.ExerciseUpdateRetrieve.as_view(), name="exercises-edit"),
 ]

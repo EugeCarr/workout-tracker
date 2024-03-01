@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    /* --primary-colour: #EEF2A6; */
+    --background-color: #040404;
+    --card-background-color: #141414;
+    --link-hover-color: #4BFB68;
+    --accent-colour: #4BFB68;
+    --text-colour: #C3FECD;
+    --default-small-text-size: 1vw;
+    --default-medium-text-size: 3vw;
+
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--background-color)
+}
+
+html {
+    height: 100%;
+}
+
+.page-background {
+    background-color: var(--background-color);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.site-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--card-background-color);
+    color: var(--accent-colour);
+}
+
+.site-banner > p {
+    font-size: 3rem;
+    color: var(--accent-colour);
+    padding: 2rem;
+}
+
+.headingLink:hover {
+    color: var(--link-hover-color);
+}
+
+.title {
+    font-size: 2rem;
+    color: var(--accent-colour);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-card {
+    background-color: var(--card-background-color);
+    border-radius: 2px;
+    border-width: 1px;
+    box-shadow: 1px 1px 3px 3px grey;
+    padding-top: 0.2rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15vw;
+}
