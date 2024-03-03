@@ -66,3 +66,13 @@ html {
     align-items: center;
     margin: 15vw;
 }
+
+.login-input {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem
+}
+
+.login-button {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem
+}
