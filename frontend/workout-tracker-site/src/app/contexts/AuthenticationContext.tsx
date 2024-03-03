@@ -5,7 +5,7 @@ import { authDetails } from "../interfaces/interfaces";
  const initialAuth: authDetails = {
     username: "",
     authToken: "",
-    // refreshToken: ""
+    refreshToken: ""
 }
 
 export type authContextValue = {

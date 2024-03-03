@@ -41,7 +41,8 @@ export const createUser = async (loginDetails: loginDetails) => {
         // console.log(tokenResBody);
         return {
             username: loginDetails.username,
-            authToken: tokenResBody["auth_token"],
+            access: tokenResBody["access"],
+            refresh: tokenResBody["refresh"],
         }
     }catch(error) {
         console.log(error)

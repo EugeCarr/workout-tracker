@@ -37,7 +37,6 @@ const LoginForm = (): React.ReactNode => {
 
     const buttonAction =  async () => {
         const {password, re_password} = login;
-        console.log([password, re_password]);
         if(password !==re_password){
             setErrorMessages([
                 ...errorMessages,
@@ -49,13 +48,16 @@ const LoginForm = (): React.ReactNode => {
             setAuthDetails(
                 {
                     username: loginResponse?.username,
-                    authToken: loginResponse?.authToken
+                    authToken: loginResponse?.access,
+                    refreshToken: loginResponse?.refresh,
                 }
             );
+            console.log(loginResponse)
             return 
         }        
         
     };
+
     return (
         <div
             className="login-card"           
