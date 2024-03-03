@@ -76,3 +76,8 @@ html {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem
 }
+
+.formErrorMessage {
+    font-size: 1em;
+    color: red;
+}

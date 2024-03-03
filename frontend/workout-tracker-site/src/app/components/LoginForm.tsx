@@ -10,19 +10,23 @@ import {
 import React, { useState, useEffect} from "react";
 import { loginDetails } from "../interfaces/interfaces";
 import { createUser } from "../api/login";
+import { useAuthenticationContext } from "../contexts/AuthenticationContext";
+import { authDetails } from "../interfaces/interfaces";
 
 
 const LoginForm = (): React.ReactNode => {
+    const {authDetails: authDetails, setAuthDetails} = useAuthenticationContext();
     
     const [login, setLogin] = useState<loginDetails>({
         username: "",
         password: "",
         re_password: "",
     });
+    const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const [loginSuccess, setloginSuccess] = useState<boolean | null>();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {        
         setLogin(
             {
                 ...login,
@@ -31,18 +35,42 @@ const LoginForm = (): React.ReactNode => {
         )
     };
 
-    const buttonAction = (): void => {
-        console.log(login)
-        const loginResponse = createUser(login);
-        console.log(loginResponse)
+    const buttonAction =  async () => {
+        const {password, re_password} = login;
+        console.log([password, re_password]);
+        if(password !==re_password){
+            setErrorMessages([
+                ...errorMessages,
+                "Password and confirm Password do not match."
+            ])
+            return
+        }else{
+            const loginResponse = await createUser(login);
+            setAuthDetails(
+                {
+                    username: loginResponse?.username,
+                    authToken: loginResponse?.authToken
+                }
+            );
+            return 
+        }        
         
-        return 
     };
     return (
         <div
             className="login-card"           
         >
             <p className="title">Login to site</p>
+            {
+                !!errorMessages && errorMessages.map(
+                    (msg) => {
+                        return (
+                            React.cloneElement(
+                                <p className="formErrorMessage">{msg}</p>
+                        ))
+                    }
+                )
+            }
             <input
                 name="username"
                 type="text"
@@ -73,6 +101,7 @@ const LoginForm = (): React.ReactNode => {
             <button
                 name="login-button"
                 className="login-button"
+                disabled={!errorMessages && !login.username || !login.password || !login.re_password}
                 onClick={buttonAction}
             >Log in</button>
         </div>

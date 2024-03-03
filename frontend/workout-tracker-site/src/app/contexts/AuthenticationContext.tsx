@@ -1,29 +1,25 @@
+"use client"
 import { createContext, useState, useContext } from "react";
 import { PropsWithMandChildren } from "../types/types";
 import { authDetails } from "../interfaces/interfaces";
  const initialAuth: authDetails = {
     username: "",
     authToken: "",
-    refreshToken: ""
+    // refreshToken: ""
 }
 
 export type authContextValue = {
     authDetails: authDetails,
-    setAuthDetails: (arg0: authDetails) => void
+    setAuthDetails: React.Dispatch<authDetails>
 }
-const AuthenticationContext = createContext<authContextValue | null>(
-    {
-        authDetails: initialAuth,
-         setAuthDetails: ()=>{},
-    }
-);
+const authContext = createContext<authContextValue | null>(null);
 
 
-export const AuthenticationProvider = ({children}: {children: JSX.Element}) => {
+export const AuthProvider = ({children}: React.PropsWithChildren<{}>) => {
     const [authDetails, setAuthDetails] = useState<authDetails>(initialAuth)
 
     return (
-        <AuthenticationContext.Provider
+        <authContext.Provider
             value={
                 {
                     authDetails,
@@ -32,8 +28,12 @@ export const AuthenticationProvider = ({children}: {children: JSX.Element}) => {
             }
         >
             {children}
-        </AuthenticationContext.Provider>
+        </authContext.Provider>
     )
 };
 
-export const useAuthenticationContext = () => useContext(AuthenticationContext);
+export const useAuthenticationContext = () => {
+    const context = useContext(authContext);
+    if(!context){throw Error("useAuthenticationContext can only be used inside an AuthProvider")}
+    return context
+};

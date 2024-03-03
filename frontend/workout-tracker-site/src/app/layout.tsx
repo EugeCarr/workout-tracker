@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles.css";
 import SiteBanner from "./components/SiteBanner";
+import { AuthProvider } from "./contexts/AuthenticationContext";
 
 
 export const metadata: Metadata = {
@@ -20,12 +21,14 @@ export default function RootLayout({
     >
       <body 
       >
-        <SiteBanner/>
-        <div
-          className="page-background"
-        >
-          {children}
-        </div>
+        <AuthProvider>
+          <SiteBanner/>
+          <div
+            className="page-background"
+          >
+            {children}
+          </div>
+        </AuthProvider>
         
       </body>
     </html>
