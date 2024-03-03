@@ -1,14 +1,15 @@
 "use server";
 import { loginDetails, authDetails } from "../interfaces/interfaces";
 import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../config.js";
+import { myFetch, ResponseError } from "./fetchWrapper";
 
-export const createUser = async (loginDetails: loginDetails) => {
+export const createUser = async (loginDetails: loginDetails): Promise<authDetails | null> => {
 
     const fetchURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
     const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
     // console.log(fetchURL);
     try{
-        const response = await fetch(
+        const response = await myFetch(
             fetchURL,
             {
                 method: "POST",
@@ -18,10 +19,8 @@ export const createUser = async (loginDetails: loginDetails) => {
                 },
             },        
         );
-        const resBody = await response.json();
-        // console.log(response);
-        // console.log(resBody);
-        const tokenResponse = await fetch(
+        console.log(response)
+        const tokenResponse = await myFetch(
             fetchTokenURL,
             {
                 method: "POST",
@@ -37,13 +36,11 @@ export const createUser = async (loginDetails: loginDetails) => {
             }
             
         );
-        const tokenResBody = await tokenResponse.json();
-        // console.log(tokenResBody);
         return {
             username: loginDetails.username,
-            access: tokenResBody["access"],
-            refresh: tokenResBody["refresh"],
-        }
+            authToken: tokenResponse["access"],
+            refreshToken: tokenResponse["refresh"],
+        };             
     }catch(error) {
         console.log(error)
         return null

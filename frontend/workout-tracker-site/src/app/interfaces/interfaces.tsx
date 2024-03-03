@@ -7,6 +7,6 @@ export interface loginDetails {
 export interface authDetails {
     username?: string,
     authToken?: string,
-    refreshToken: string,
+    refreshToken?: string,
     first_name?: string,
 }

@@ -48,8 +48,8 @@ const LoginForm = (): React.ReactNode => {
             setAuthDetails(
                 {
                     username: loginResponse?.username,
-                    authToken: loginResponse?.access,
-                    refreshToken: loginResponse?.refresh,
+                    authToken: loginResponse?.authToken,
+                    refreshToken: loginResponse?.refreshToken,
                 }
             );
             console.log(loginResponse)
