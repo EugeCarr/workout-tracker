@@ -9,29 +9,29 @@ import {
 } from "@chakra-ui/react";
 import React, { useState} from "react";
 import { useRouter } from "next/navigation";
-import { loginDetails, signupDetails } from "../interfaces/interfaces";
-import { loginUser } from "../api/login";
+import { signupDetails } from "../interfaces/interfaces";
+import { createUser } from "../api/signup";
 import { useAuthenticationContext } from "../contexts/AuthenticationContext";
 import { authDetails } from "../interfaces/interfaces";
 import Link from "next/link";
 
 
-
-const LoginForm = (): React.ReactNode => {
-    const {authDetails, setAuthDetails} = useAuthenticationContext();
+const SignupForm = (): React.ReactNode => {
+    const {authDetails: authDetails, setAuthDetails} = useAuthenticationContext();
     
-    const [login, setLogin] = useState<loginDetails>({
+    const [signup, setSignup] = useState<signupDetails>({
         username: "",
         password: "",
+        re_password: "",
     });
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
-    const [badLogin, setBadLogin] = useState<string>("");
+    const [badSignup, setBadSignup] = useState<string>("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {        
-        setLogin(
+        setSignup(
             {
-                ...login,
+                ...signup,
                 [e.target.name]: e.target.value
             }
         )
@@ -39,20 +39,28 @@ const LoginForm = (): React.ReactNode => {
     const homePageRouter = useRouter()
 
     const buttonAction =  async () => {
-        const {password} = login;
-        const loginResponse = await loginUser(login);
-        setAuthDetails(
-            {
-                username: loginResponse?.username,
-                authToken: loginResponse?.authToken,
-                refreshToken: loginResponse?.refreshToken,
-            }
-        );
-        if(!loginResponse?.username){
-            setBadLogin("Login Failed. Please enter a correct username and password.")
+        const {password, re_password} = signup;
+        if(password !==re_password){
+            setErrorMessages([
+                ...errorMessages,
+                "Password and confirm Password do not match."
+            ])
             return
-        }
-        homePageRouter.push('../')       
+        }else{
+            const loginResponse = await createUser(signup);
+            setAuthDetails(
+                {
+                    username: loginResponse?.username,
+                    authToken: loginResponse?.authToken,
+                    refreshToken: loginResponse?.refreshToken,
+                }
+            );
+            if(!loginResponse?.username){
+                setBadSignup("Login Failed. Please enter a correct username and password.")
+                return
+            }
+            homePageRouter.push('../')
+        }        
         
     };
 
@@ -60,7 +68,7 @@ const LoginForm = (): React.ReactNode => {
         <div
             className="login-card"           
         >
-            <p className="title">Login to site</p>
+            <p className="title">Sign up for account</p>
             {
                 !!errorMessages && errorMessages.map(
                     (msg) => {
@@ -75,7 +83,7 @@ const LoginForm = (): React.ReactNode => {
                 name="username"
                 type="text"
                 className="login-input"
-                value={login.username}
+                value={signup.username}
                 onChange = {handleChange}
                 placeholder="Username"
 
@@ -84,27 +92,33 @@ const LoginForm = (): React.ReactNode => {
                 name="password"
                 type="text"
                 className="login-input"
-                value={login.password}
+                value={signup.password}
                 onChange = {handleChange}
                 placeholder="Password"
 
             />
+            <input
+                name="re_password"
+                type="text"
+                className="login-input"
+                value={signup.re_password}
+                onChange = {handleChange}
+                placeholder="Confirm Password"
+
+            />
             {
-                !!badLogin && <p className="formErrorMessage">{badLogin}</p>
+                !!badSignup && <p className="formErrorMessage">{badSignup}</p>
             }
             <button
                 name="login-button"
                 className="login-button"
-                disabled={!errorMessages && !login.username || !login.password}
+                disabled={!errorMessages && !signup.username || !signup.password || !signup.re_password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}
-            >Log in</button>
-            <Link href="/signup">
-                <p>No acccount? Sign up</p>
-            </Link>
+            >Sign Up</button>
             
         </div>
     )
 }
 
-export default LoginForm
+export default SignupForm

@@ -5,7 +5,7 @@ import  SiteBanner from "./components/SiteBanner"
 
 const Home = () => {
   return (
-    <>
+    <>Home Page
     </>
   );
 }

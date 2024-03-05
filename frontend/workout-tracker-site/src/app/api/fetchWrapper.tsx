@@ -12,7 +12,9 @@ export class ResponseError extends Error {
         // .then((response) => response.json())
     // console.log(res)
     if (!res.ok) {
-        console.log(res)
+        // console.log(res)
+        // add more sophisticated error handling for other situations later
+
       throw new ResponseError(`${res.status}: ${res.statusText} `, res);
     }
     return res.json();
