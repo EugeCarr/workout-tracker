@@ -26,7 +26,7 @@ export const createUser = async (signupDetails: signupDetails): Promise<authDeta
                 method: "POST",
                 body: JSON.stringify(
                     {
-                        username: signupDetails.username,
+                        email: signupDetails.email,
                         password: signupDetails.password
                     }
                 ),
@@ -37,9 +37,11 @@ export const createUser = async (signupDetails: signupDetails): Promise<authDeta
             
         );
         return {
-            username: signupDetails.username,
+            email: signupDetails.email,
             authToken: tokenResponse["access"],
             refreshToken: tokenResponse["refresh"],
+            first_name: signupDetails.first_name,
+            last_name: signupDetails.last_name,
         };             
     }catch(error) {
         console.log(error)

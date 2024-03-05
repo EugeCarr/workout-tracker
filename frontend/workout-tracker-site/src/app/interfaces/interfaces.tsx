@@ -1,17 +1,20 @@
 export interface signupDetails {
-    username: string;
+    email: string;
     password: string;
     re_password: string;
+    first_name: string;
+    last_name: string
 }
 
 export interface loginDetails {
-    username: string;
+    email: string;
     password: string;
 }
 
 export interface authDetails {
-    username?: string,
+    email?: string,
     authToken?: string,
     refreshToken?: string,
     first_name?: string,
+    last_name?: string,
 }

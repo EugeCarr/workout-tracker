@@ -13,7 +13,7 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
                 method: "POST",
                 body: JSON.stringify(
                     {
-                        username: loginDetails.username,
+                        email: loginDetails.email,
                         password: loginDetails.password
                     }
                 ),
@@ -24,7 +24,7 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
             
         );
         return {
-            username: loginDetails.username,
+            email: loginDetails.email,
             authToken: tokenResponse["access"],
             refreshToken: tokenResponse["refresh"],
         };             

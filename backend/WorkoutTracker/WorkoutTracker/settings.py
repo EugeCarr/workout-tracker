@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',    
     'djoser',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -147,8 +148,19 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 5
 }
 
+ACCOUNT_SERIALIZER = 'accounts.serializers.UserManagementSerializer'
 DJOSER = {
-    "USER_ID_FIELD": "username",
-    # "USER_CREATE_PASSWORD_RETYPE": True,
-    # "LOGIN_FIELD": "email",    
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    # 'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    # 'SEND_CONFIRMATION_EMAIL': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'SERIALIZERS': {
+        'user_create': ACCOUNT_SERIALIZER,
+        'user': ACCOUNT_SERIALIZER,
+        'current_user': ACCOUNT_SERIALIZER,
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    }  
 }
+AUTH_USER_MODEL = 'accounts.UserAccount'

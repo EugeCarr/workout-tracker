@@ -21,7 +21,7 @@ const LoginForm = (): React.ReactNode => {
     const {authDetails, setAuthDetails} = useAuthenticationContext();
     
     const [login, setLogin] = useState<loginDetails>({
-        username: "",
+        email: "",
         password: "",
     });
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
@@ -43,12 +43,12 @@ const LoginForm = (): React.ReactNode => {
         const loginResponse = await loginUser(login);
         setAuthDetails(
             {
-                username: loginResponse?.username,
+                email: loginResponse?.email,
                 authToken: loginResponse?.authToken,
                 refreshToken: loginResponse?.refreshToken,
             }
         );
-        if(!loginResponse?.username){
+        if(!loginResponse?.email){
             setBadLogin("Login Failed. Please enter a correct username and password.")
             return
         }
@@ -75,7 +75,7 @@ const LoginForm = (): React.ReactNode => {
                 name="username"
                 type="text"
                 className="login-input"
-                value={login.username}
+                value={login.email}
                 onChange = {handleChange}
                 placeholder="Username"
 
@@ -95,7 +95,7 @@ const LoginForm = (): React.ReactNode => {
             <button
                 name="login-button"
                 className="login-button"
-                disabled={!errorMessages && !login.username || !login.password}
+                disabled={!errorMessages && !login.email || !login.password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}
             >Log in</button>

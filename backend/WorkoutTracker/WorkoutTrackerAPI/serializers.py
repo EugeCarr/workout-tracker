@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from accounts.models import UserAccount
 from . import models
-
-
+        
 class UserManagementSerializer(serializers.ModelSerializer):
     class Meta():
-        model = User
-        fields = ["id", "username", "first_name", "email"]
+        model = UserAccount
+        fields = ["id", "username", "first_name", "email"]        
         
 class SessionHelperSerializer(serializers.ModelSerializer):
     workoutPlan_id =serializers.PrimaryKeyRelatedField(queryset=models.WorkoutPlan.objects.all())

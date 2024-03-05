@@ -20,9 +20,11 @@ const SignupForm = (): React.ReactNode => {
     const {authDetails: authDetails, setAuthDetails} = useAuthenticationContext();
     
     const [signup, setSignup] = useState<signupDetails>({
-        username: "",
+        email: "",
         password: "",
         re_password: "",
+        first_name: "",
+        last_name: "",
     });
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
@@ -50,12 +52,12 @@ const SignupForm = (): React.ReactNode => {
             const loginResponse = await createUser(signup);
             setAuthDetails(
                 {
-                    username: loginResponse?.username,
+                    email: loginResponse?.email,
                     authToken: loginResponse?.authToken,
                     refreshToken: loginResponse?.refreshToken,
                 }
             );
-            if(!loginResponse?.username){
+            if(!loginResponse?.email){
                 setBadSignup("Login Failed. Please enter a correct username and password.")
                 return
             }
@@ -80,12 +82,30 @@ const SignupForm = (): React.ReactNode => {
                 )
             }
             <input
-                name="username"
+                name="email"
                 type="text"
                 className="login-input"
-                value={signup.username}
+                value={signup.email}
                 onChange = {handleChange}
-                placeholder="Username"
+                placeholder="Email Address"
+
+            />
+            <input
+                name="first_name"
+                type="text"
+                className="login-input"
+                value={signup.first_name}
+                onChange = {handleChange}
+                placeholder="First Name"
+
+            />
+            <input
+                name="last_name"
+                type="text"
+                className="login-input"
+                value={signup.last_name}
+                onChange = {handleChange}
+                placeholder="Last Name"
 
             />
             <input
@@ -112,7 +132,7 @@ const SignupForm = (): React.ReactNode => {
             <button
                 name="login-button"
                 className="login-button"
-                disabled={!errorMessages && !signup.username || !signup.password || !signup.re_password}
+                disabled={!errorMessages && !signup.email || !signup.password || !signup.re_password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}
             >Sign Up</button>

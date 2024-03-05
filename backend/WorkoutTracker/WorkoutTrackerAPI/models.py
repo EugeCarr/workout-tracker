@@ -1,10 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User, Group
+from accounts.models import UserAccount
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+    
 class WorkoutPlan(models.Model):
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="client")
-    trainer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="PT")
+    client = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="client")
+    trainer = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="PT")
     name = models.CharField(max_length=255)
     
     def __str__(self) -> str:

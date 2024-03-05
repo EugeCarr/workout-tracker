@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from "react";
 import { PropsWithMandChildren } from "../types/types";
 import { authDetails } from "../interfaces/interfaces";
  const initialAuth: authDetails = {
-    username: "",
+    email: "",
     authToken: "",
     refreshToken: ""
 }

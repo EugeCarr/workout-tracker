@@ -2,7 +2,7 @@ import { FC } from "react";
 import { authDetails } from "../interfaces/interfaces";
 import  "../styles.css";
 
-const SiteBanner: FC<authDetails > = ({username}): React.ReactNode => {
+const SiteBanner: FC<authDetails > = ({email: username}): React.ReactNode => {
 
     return (
         <div
