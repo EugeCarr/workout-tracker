@@ -1,4 +1,6 @@
 "use server";
+import { cookies } from 'next/headers'
+import { getTokenExpiryTime } from '../utils';
 import { signupDetails, authDetails } from "../interfaces/interfaces";
 import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
@@ -7,7 +9,7 @@ export const createUser = async (signupDetails: signupDetails): Promise<authDeta
 
     const fetchURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
     const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
-    // console.log(fetchURL);
+    const FIVE_MINS_TIME = getTokenExpiryTime()
     try{
         const response = await myFetch(
             fetchURL,
@@ -36,6 +38,12 @@ export const createUser = async (signupDetails: signupDetails): Promise<authDeta
             }
             
         );
+        cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME })
+        cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true})
+        cookies().set({name: 'email', value: signupDetails.email, httpOnly: true})
+        cookies().set({name: 'first_name', value: signupDetails.first_name, httpOnly: true})
+        cookies().set({name: 'last_name', value: signupDetails.last_name, httpOnly: true})
+        
         return {
             email: signupDetails.email,
             authToken: tokenResponse["access"],

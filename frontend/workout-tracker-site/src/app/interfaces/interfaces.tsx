@@ -18,3 +18,27 @@ export interface authDetails {
     first_name?: string,
     last_name?: string,
 }
+
+export interface mainPageCardDetails {
+    title: string,
+    photoSrc: string,
+    description: string,
+    pageRoute: string
+}
+
+export interface session {
+    id: number;
+    workoutPlan_id: number;
+    name: string;
+    plannedDate: Date;
+    completedDate: Date;
+    description: string
+}
+
+export interface workoutPlan {
+    id: number;
+    client_id: number;
+    trainer_id: number;
+    name: string;
+    sessions?: session[];
+}

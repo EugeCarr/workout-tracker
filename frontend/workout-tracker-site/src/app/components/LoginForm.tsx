@@ -24,7 +24,6 @@ const LoginForm = (): React.ReactNode => {
         email: "",
         password: "",
     });
-    const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const [badLogin, setBadLogin] = useState<string>("");
 
@@ -39,15 +38,7 @@ const LoginForm = (): React.ReactNode => {
     const homePageRouter = useRouter()
 
     const buttonAction =  async () => {
-        const {password} = login;
         const loginResponse = await loginUser(login);
-        setAuthDetails(
-            {
-                email: loginResponse?.email,
-                authToken: loginResponse?.authToken,
-                refreshToken: loginResponse?.refreshToken,
-            }
-        );
         if(!loginResponse?.email){
             setBadLogin("Login Failed. Please enter a correct username and password.")
             return
@@ -61,23 +52,13 @@ const LoginForm = (): React.ReactNode => {
             className="login-card"           
         >
             <p className="title">Login to site</p>
-            {
-                !!errorMessages && errorMessages.map(
-                    (msg) => {
-                        return (
-                            React.cloneElement(
-                                <p className="formErrorMessage">{msg}</p>
-                        ))
-                    }
-                )
-            }
             <input
-                name="username"
+                name="email"
                 type="text"
                 className="login-input"
                 value={login.email}
                 onChange = {handleChange}
-                placeholder="Username"
+                placeholder="Email"
 
             />
             <input
@@ -95,7 +76,7 @@ const LoginForm = (): React.ReactNode => {
             <button
                 name="login-button"
                 className="login-button"
-                disabled={!errorMessages && !login.email || !login.password}
+                disabled={!login.email || !login.password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}
             >Log in</button>

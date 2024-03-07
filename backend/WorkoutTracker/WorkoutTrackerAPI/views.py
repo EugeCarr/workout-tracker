@@ -32,7 +32,8 @@ class WorkoutPlanCreateList(ClientReadOnlyPermissionMixin, generics.ListCreateAP
     
     def get_queryset(self):
         user = self.request.user
-        print([self.request, user])
+        print(user.id)
+        print(user.groups)
         if user.groups.filter(name="Client").exists():
             return models.WorkoutPlan.objects.filter(client_id=user.id)
         else:

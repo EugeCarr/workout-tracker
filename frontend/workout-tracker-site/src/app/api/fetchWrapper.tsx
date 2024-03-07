@@ -8,7 +8,11 @@ export class ResponseError extends Error {
   }
   
   export const myFetch =  async (url: string, options: RequestInit): Promise<any> => {
-    const res = await fetch(url, options)
+    // console.log(options)
+    const res = await fetch(
+      url,
+      options
+      )
         // .then((response) => response.json())
     // console.log(res)
     if (!res.ok) {

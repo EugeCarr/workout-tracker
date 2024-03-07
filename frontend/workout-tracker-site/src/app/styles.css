@@ -13,11 +13,16 @@ body {
 
 * {
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--background-color)
+    color: var(--background-color);
 }
 
 html {
     height: 100%;
+}
+
+p {
+    color: white;
+    font-size: var(--default-small-text-size);
 }
 
 .page-background {
@@ -81,3 +86,10 @@ html {
     font-size: 1em;
     color: red;
 }
+
+.link-card:hover {
+    border-width: "2.5vw";
+    border-color: var(--link-hover-color);
+    border-style: solid;
+}
+
