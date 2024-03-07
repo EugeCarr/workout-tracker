@@ -5,7 +5,7 @@ import { authDetails, workoutPlan } from "../interfaces/interfaces";
 import { myFetch } from "./fetchWrapper";
 import { getAccessToken } from "./getAccessToken";
 
-export const getWorkOutPlans = async (id?: number): Promise<workoutPlan | {}[]> =>{
+export const getWorkOutPlans = async (id?: number): Promise<workoutPlan[]> =>{
     let fetchplansURL = "";
     if(!id){
         fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 
@@ -13,7 +13,7 @@ export const getWorkOutPlans = async (id?: number): Promise<workoutPlan | {}[]> 
         fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT + "/" + id
     }
 
-    // console.log(fetchplansURL)
+    console.log(fetchplansURL)
     const accessToken = getAccessToken();
     // console.log(accessToken?.value);
 
@@ -34,7 +34,7 @@ export const getWorkOutPlans = async (id?: number): Promise<workoutPlan | {}[]> 
 
     }catch(error){
         console.log(error)
-        return [{}]
+        return []
     }
 
 }

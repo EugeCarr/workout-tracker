@@ -35,10 +35,20 @@ export interface session {
     description: string
 }
 
+export interface userAccount {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+}
+
 export interface workoutPlan {
     id: number;
     client_id: number;
     trainer_id: number;
+    client: userAccount;
+    trainer: userAccount;
     name: string;
     sessions?: session[];
 }
