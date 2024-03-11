@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from . import serializers, models
+from django.http import HttpResponseBadRequest
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -32,8 +33,6 @@ class WorkoutPlanCreateList(ClientReadOnlyPermissionMixin, generics.ListCreateAP
     
     def get_queryset(self):
         user = self.request.user
-        print(user.id)
-        print(user.groups)
         if user.groups.filter(name="Client").exists():
             return models.WorkoutPlan.objects.filter(client_id=user.id)
         else:
@@ -91,7 +90,7 @@ class ExerciseCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generic
         
 class ExerciseUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ExerciseSerializer
-    throttle_classes = [UserRateThrottle]
+    throttle_classes = [UserRateThrottle]    
     
     def get_queryset(self):
         user = self.request.user
@@ -99,3 +98,24 @@ class ExerciseUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpd
             return models.Exercise.objects.filter(session__workoutPlan__client_id=user.id)
         else:
             return models.Exercise.objects.filter(session__workoutPlan__trainer_id=user.id)
+        
+class UserAccountList(generics.ListAPIView):
+    serializer_class = serializers.UserManagementSerializer
+    throttle_classes = [UserRateThrottle]
+    queryset = models.UserAccount.objects.all()
+    permission_classes = [IsTrainer | IsAdminUser, IsAuthenticated]
+    
+    
+    def get(self, request, *args, **kwargs):
+        try: 
+            print(self.kwargs)  
+            isClient = self.kwargs['is_client']            
+            if isClient not in ['1', '0']:
+                return HttpResponseBadRequest(content={"message": "You must specify whether clients or trainers is requested"})
+            
+            if isClient == '1':
+                return models.UserAccount.objects.filter(group__name="Client")
+            else:
+                return models.UserAccount.objects.filter(group__name="Trainer")
+        except KeyError:
+            return HttpResponseBadRequest(content={"message": "You must specify whether clients or trainers is requested"})

@@ -34,7 +34,7 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
         );
 
         cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME });
-        cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true, expires: FIVE_MINS_TIME });
+        cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true });
         console.log("post login")
         console.log(cookies().get('authToken'))
         getUserDetails()

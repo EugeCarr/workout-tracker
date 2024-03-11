@@ -1,6 +1,7 @@
+// "use client"
 import  "../styles.css";
 import { getWorkOutPlans } from "../api/getWorkoutplans";
-import { workoutPlan } from "../interfaces/interfaces";
+import { userAccount, workoutPlan } from "../interfaces/interfaces";
 import { WorkoutDisplayCard } from "./WorkoutDisplayCard";
 import Link from "next/link";
 
@@ -12,6 +13,16 @@ export const WorkoutPlanGrid = async (): Promise<any>  => {
         return workoutPlans
     } 
 
+    const getUsers = async(): Promise<userAccount[]> => {
+        const users: userAccount[] = await getUsers();
+        const trainers: userAccount[] = users.filter((user)=> {
+            user.isTrainer
+        });
+        const clients: userAccount[] = users.filter((user) => !trainers.includes(user));       
+        return [trainers, clients]
+    }
+    
+
     const plans = await getPlans();
     console.log(plans)
     const planComps = plans.map((wPlan)=> {
@@ -19,6 +30,7 @@ export const WorkoutPlanGrid = async (): Promise<any>  => {
             <Link
                 href={`myWorkouts/${wPlan.id}`}
                 style={{textDecoration: 'none'}}
+                key={wPlan.id}
             >
                 <WorkoutDisplayCard workoutPlan={wPlan} key={wPlan.id}/>
             </Link>

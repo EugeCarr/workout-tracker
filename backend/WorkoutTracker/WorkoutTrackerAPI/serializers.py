@@ -6,7 +6,7 @@ from . import models
 class UserManagementSerializer(serializers.ModelSerializer):
     class Meta():
         model = UserAccount
-        fields = ["id", "username", "first_name", "email"]        
+        fields = ["id", "username", "first_name", "last_name", "email"]        
         
 class SessionHelperSerializer(serializers.ModelSerializer):
     workoutPlan_id =serializers.PrimaryKeyRelatedField(queryset=models.WorkoutPlan.objects.all())

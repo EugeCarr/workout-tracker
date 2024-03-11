@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, PermissionsMixin
 from django.db import models
 from datetime import datetime
 import pytz
@@ -40,7 +40,7 @@ class UserAccountManager(BaseUserManager):
         
         return user
 
-class UserAccount(AbstractUser):
+class UserAccount(AbstractUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)    
