@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .permissions import IsClient, IsTrainer
+from accounts import serializers as accountSerializers
+from accounts.models import UserAccount
 
 
 class CreateListMixin(object):
@@ -100,22 +102,23 @@ class ExerciseUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpd
             return models.Exercise.objects.filter(session__workoutPlan__trainer_id=user.id)
         
 class UserAccountList(generics.ListAPIView):
-    serializer_class = serializers.UserManagementSerializer
+    serializer_class = accountSerializers.UserManagementSerializer
     throttle_classes = [UserRateThrottle]
-    queryset = models.UserAccount.objects.all()
+    queryset = UserAccount.objects.all()
     permission_classes = [IsTrainer | IsAdminUser, IsAuthenticated]
-    
-    
-    def get(self, request, *args, **kwargs):
+        
+    def get_queryset(self):
         try: 
-            print(self.kwargs)  
-            isClient = self.kwargs['is_client']            
+            print(self.request.query_params.get('is_client'))  
+            isClient = self.request.query_params.get('is_client')           
             if isClient not in ['1', '0']:
                 return HttpResponseBadRequest(content={"message": "You must specify whether clients or trainers is requested"})
             
             if isClient == '1':
-                return models.UserAccount.objects.filter(group__name="Client")
+                data = self.queryset.filter(groups__name="Client")
             else:
-                return models.UserAccount.objects.filter(group__name="Trainer")
+                data = self.queryset.filter(groups__name="Trainer")
+            print(data)
+            return data
         except KeyError:
-            return HttpResponseBadRequest(content={"message": "You must specify whether clients or trainers is requested"})
+            return HttpResponseBadRequest(content={"You must specify whether clients or trainers is requested"})
