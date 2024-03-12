@@ -5,11 +5,9 @@ import {SITE_DOMAIN_NAME, REFRESH_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
 import { getTokenExpiryTime } from "../utils";
 
-export const refreshToken = async (): Promise<void> => {
+export const getRefreshedAccessToken = async (refreshToken: string| undefined): Promise<string> => {
 
     const fetchTokenURL = SITE_DOMAIN_NAME + REFRESH_TOKEN_ENDPOINT;
-    const refreshToken = cookies().get("refreshToken");
-    const FIVE_MINS_TIME = getTokenExpiryTime();
 
     try{
         const tokenResponse = await myFetch(
@@ -27,10 +25,10 @@ export const refreshToken = async (): Promise<void> => {
             }
             
         );
-        cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME })
-        return            
+        // cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME })
+        return  tokenResponse["access"]         
     }catch(error) {
         console.log(error)
-        return
+        return ""
     }
 }

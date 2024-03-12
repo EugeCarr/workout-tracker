@@ -13,8 +13,8 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
     const FIVE_MINS_TIME = getTokenExpiryTime();
     cookies().set({name: 'authToken', value: "", httpOnly: true, expires: FIVE_MINS_TIME });
     cookies().set({name: 'refreshToken', value: "", httpOnly: true, expires: FIVE_MINS_TIME });
-    console.log("Pre login")
-    console.log(cookies().get('authToken'))
+    // console.log("Pre login")
+    // console.log(cookies().get('authToken'))
     try{
         const tokenResponse = await myFetch(
             fetchTokenURL,
@@ -35,8 +35,8 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
 
         cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME });
         cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true });
-        console.log("post login")
-        console.log(cookies().get('authToken'))
+        // console.log("post login")
+        // console.log(cookies().get('authToken'))
         getUserDetails()
 
         return {

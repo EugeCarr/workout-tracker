@@ -9,3 +9,7 @@ export const GET_WORKOUTPLANS_ENDPOINT = "/api/workout-plans";
 export const REFRESH_TOKEN_ENDPOINT = "/auth/jwt/refresh/";
 
 export const GET_USER_ENDPOINT = "/auth/users/";
+
+export const GET_MULTIPLE_USERS_ENDPOINT = "/api/users/";
+
+export const POST_CREATE_WORKOUT_PLANS = "/api/workout-plans";

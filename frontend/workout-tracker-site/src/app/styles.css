@@ -93,3 +93,13 @@ p {
     border-style: solid;
 }
 
+.form-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: "space-between";
+}
+
+.standard-form-label {
+    color: var(--text-colour);
+    padding-right: "2rem";
+}

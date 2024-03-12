@@ -41,14 +41,15 @@ export interface userAccount {
     first_name: string;
     last_name: string;
     email: string;
+    groups?: string[];
 }
 
 export interface workoutPlan {
-    id: number;
-    client_id: number;
-    trainer_id: number;
-    client: userAccount;
-    trainer: userAccount;
-    name: string;
+    id?: number;
+    client_id?: number;
+    trainer_id?: number;
+    client?: userAccount;
+    trainer?: userAccount;
+    name?: string;
     sessions?: session[];
 }
