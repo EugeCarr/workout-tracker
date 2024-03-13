@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export interface signupDetails {
     email: string;
     password: string;
@@ -45,11 +47,16 @@ export interface userAccount {
 }
 
 export interface workoutPlan {
-    id?: number;
-    client_id?: number;
-    trainer_id?: number;
+    id: number;
+    client_id: number;
+    trainer_id: number;
     client?: userAccount;
     trainer?: userAccount;
     name?: string;
     sessions?: session[];
 }
+
+export interface planChangeAction {
+    type: string,
+    plans: workoutPlan[]
+};

@@ -1,21 +1,25 @@
 "use client";
-import { userAccount, workoutPlan } from "../interfaces/interfaces";
-import React, { ChangeEvent, FC } from "react";
+import { planChangeAction, userAccount, workoutPlan } from "../interfaces/interfaces";
+import React, { ChangeEvent, Dispatch, FC } from "react";
 import { Card, Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { SelectHTMLAttributes, DetailedHTMLProps} from "react";
 import { Select, FormControl, Input, FormLabel } from "@chakra-ui/react";
 import { createWorkoutPlans } from "../api/createWorkoutPlan";
+import { useCookies } from "react-cookie";
+
 
 interface Props {
     trainerUsers: userAccount[];
     clientUsers: userAccount[];
+    changePlans?: Dispatch<planChangeAction>;
 }
 
-export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers}): React.ReactNode => {
-    const [editedWPlan, setEditedWPlan] = useState<workoutPlan>({         
-    });
+export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, changePlans}): React.ReactNode => {
+    const [editedWPlan, setEditedWPlan] = useState<workoutPlan>({} as workoutPlan);
+
+    const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {        
         setEditedWPlan(
@@ -37,8 +41,17 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers}): Reac
 
     const buttonAction = async (): Promise<void> => {
         console.log("testing button")
-        const writtenPlans = await createWorkoutPlans(editedWPlan);
-        console.log(writtenPlans);
+        const writtenPlans: workoutPlan[] = await createWorkoutPlans(editedWPlan);
+        console.log({writtenPlans});
+        if(!!writtenPlans){
+            console.log("Plan created successfully")
+            setEditedWPlan({} as workoutPlan)
+            // changePlans({
+            //     type: "append",
+            //     plans: writtenPlans
+            // })
+        }
+        // Remember to use useRouter hook to reload the page once the write to the backend is completed.
         return
     };
 
@@ -54,6 +67,7 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers}): Reac
         )
     });
 
+    console.log({editedWPlan})
     return (
         <div
                     className="login-card"           

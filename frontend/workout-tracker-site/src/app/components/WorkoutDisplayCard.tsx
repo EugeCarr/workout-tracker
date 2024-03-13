@@ -12,7 +12,9 @@ export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode 
         <Card
             backgroundColor="#141414"
             borderRadius="1rem"
-            margin="5rem"
+            marginLeft="5rem"
+            marginRight="5rem"
+            marginBottom="0.5rem"
             padding="1rem"
             className="link-card"
         >
@@ -25,10 +27,10 @@ export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode 
                     {workoutPlan.name}
                 </p>
                 <p>
-                    {`Client: ${workoutPlan.client.first_name} ${workoutPlan.client.last_name} `}
+                    {`Client: ${workoutPlan.client?.first_name} ${workoutPlan.client?.last_name} `}
                 </p>
                 <p>
-                    {`Trainer: ${workoutPlan.trainer.first_name} ${workoutPlan.trainer.last_name}`}
+                    {`Trainer: ${workoutPlan.trainer?.first_name} ${workoutPlan.trainer?.last_name}`}
                 </p>
             </Flex>
         </Card>

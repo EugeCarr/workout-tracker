@@ -17,7 +17,7 @@ class WorkoutPlanSerializer(serializers.ModelSerializer):
     trainer_id = serializers.IntegerField(write_only= True)
     client = UserManagementSerializer(read_only=True)
     trainer = UserManagementSerializer(read_only=True)
-    sessions = SessionHelperSerializer(many=True)
+    sessions = SessionHelperSerializer(many=True, read_only=True)
     class Meta():
         model = models.WorkoutPlan
         fields = ["id", "client", "client_id", "trainer", "trainer_id", "name", "sessions"]

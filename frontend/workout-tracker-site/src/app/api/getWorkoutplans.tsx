@@ -1,5 +1,4 @@
-
-
+"use server"
 import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../config";
 import { authDetails, workoutPlan } from "../interfaces/interfaces";
 import { myFetch } from "./fetchWrapper";

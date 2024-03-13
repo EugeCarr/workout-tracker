@@ -1,3 +1,4 @@
+"use server"
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { getRefreshedAccessToken } from "./refreshToken";
 import { cookies } from "next/headers";
