@@ -1,7 +1,6 @@
 "use client";
 import { workoutPlan } from "../interfaces/interfaces";
 import React, { FC, useState } from "react";
-import { Card, Flex } from "@chakra-ui/react";
 
 interface Props {
     workoutPlan: workoutPlan;
@@ -35,15 +34,20 @@ export const CreateEditDeleteWorkoutPlan: FC<Props > = ({ workoutPlan}): React.R
 
 
     return (
-        <Card
-            backgroundColor="#141414"
-            borderRadius="1rem"
-            margin="5rem"
-            padding="1rem"
+        <div
+            style={{
+                backgroundColor:"#141414",
+                borderRadius:"1rem",
+                margin:"5rem",
+                padding:"1rem",                
+            }}
             className="link-card"
         >
-            <Flex
-                direction="column"
+            <div
+                style ={{
+                    display:"flex",
+                    flexDirection:"column"
+                }}
             >
                 <p
                     className="title"
@@ -56,12 +60,12 @@ export const CreateEditDeleteWorkoutPlan: FC<Props > = ({ workoutPlan}): React.R
                     {workoutPlan.name}
                 </p>
                 <p>
-                    {`Client: ${workoutPlan.client.first_name} ${workoutPlan.client.last_name} `}
+                    {/* {`Client: ${workoutPlan.client.first_name} ${workoutPlan.client.last_name} `} */}
                 </p>
                 <p>
-                    {`Trainer: ${workoutPlan.trainer.first_name} ${workoutPlan.trainer.last_name}`}
+                    {/* {`Trainer: ${workoutPlan.trainer.first_name} ${workoutPlan.trainer.last_name}`} */}
                 </p>
-            </Flex>
-        </Card>
+            </div>
+        </div>
     )
 }

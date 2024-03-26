@@ -47,7 +47,7 @@ export interface userAccount {
 }
 
 export interface workoutPlan {
-    id: number;
+    id?: number;
     client_id: number;
     trainer_id: number;
     client?: userAccount;

@@ -1,7 +1,6 @@
 "use server";
 import { workoutPlan } from "../interfaces/interfaces";
 import React, { FC } from "react";
-import { Card, Flex } from "@chakra-ui/react";
 
 interface Props {
     workoutPlan: workoutPlan;
@@ -9,17 +8,22 @@ interface Props {
 
 export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode => {
     return (
-        <Card
-            backgroundColor="#141414"
-            borderRadius="1rem"
-            marginLeft="5rem"
-            marginRight="5rem"
-            marginBottom="0.5rem"
-            padding="1rem"
+        <div
+            style={{
+                color:"#141414",
+                borderRadius:"1rem",
+                marginLeft:"5rem",
+                marginRight:"5rem",
+                marginBottom:"0.5rem",
+                padding:"1rem",
+            }}
             className="link-card"
         >
-            <Flex
-                direction="column"
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column"
+                }}
             >
                 <p
                     className="title"
@@ -32,7 +36,7 @@ export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode 
                 <p>
                     {`Trainer: ${workoutPlan.trainer?.first_name} ${workoutPlan.trainer?.last_name}`}
                 </p>
-            </Flex>
-        </Card>
+            </div>
+        </div>
     )
 }

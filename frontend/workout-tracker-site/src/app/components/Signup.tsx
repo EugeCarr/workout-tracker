@@ -1,12 +1,5 @@
 "use client"
 import  "../styles.css";
-import {
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    Button,
-    Input
-} from "@chakra-ui/react";
 import React, { useState} from "react";
 import { useRouter } from "next/navigation";
 import { signupDetails } from "../interfaces/interfaces";

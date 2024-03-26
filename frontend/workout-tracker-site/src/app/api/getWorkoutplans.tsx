@@ -2,8 +2,8 @@
 import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../config";
 import { authDetails, workoutPlan } from "../interfaces/interfaces";
 import { myFetch } from "./fetchWrapper";
+// import { getAccessTokenClient } from "./getAccessTokenClient";
 import { getAccessTokenServer } from "./getAccessTokenServer";
-
 export const getWorkOutPlans = async (id?: number): Promise<workoutPlan[]> =>{
     let fetchplansURL = "";
     if(!id){
@@ -11,10 +11,7 @@ export const getWorkOutPlans = async (id?: number): Promise<workoutPlan[]> =>{
     }else{
         fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT + "/" + id
     }
-
-    // console.log(fetchplansURL)
     const accessToken = await getAccessTokenServer();
-    // console.log(accessToken?.value);
 
     try{
         const plansRes = await myFetch(
@@ -23,7 +20,7 @@ export const getWorkOutPlans = async (id?: number): Promise<workoutPlan[]> =>{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer " + accessToken?.value
+                    "Authorization": "Bearer " + accessToken
                     },
             }
         );

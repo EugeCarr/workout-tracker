@@ -5,15 +5,10 @@ import { myFetch } from "./fetchWrapper";
 import { getAccessTokenClient } from "./getAccessTokenClient";
 import { getAccessTokenServer } from "./getAccessTokenServer";
 
-
-export const createWorkoutPlans = async (wPlans: workoutPlan): Promise<workoutPlan[]> =>{
+export const createWorkoutPlans = async (wPlan: workoutPlan): Promise<workoutPlan> =>{
     let createPlansURL = SITE_DOMAIN_NAME + POST_CREATE_WORKOUT_PLANS;
-    console.log(createPlansURL)
-
+    console.log(createPlansURL)    
     const accessToken = await getAccessTokenServer();
-    // console.log({accessToken});
-    // console.log(accessToken?.value);
-    // console.log(wPlans)
     try{
         const plansRes = await myFetch(
             createPlansURL,
@@ -23,14 +18,14 @@ export const createWorkoutPlans = async (wPlans: workoutPlan): Promise<workoutPl
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + accessToken?.value
                     },
-                body: JSON.stringify(wPlans)
+                body: JSON.stringify(wPlan)
             }
         );
         return plansRes
 
     }catch(error){
         console.log(error)
-        return []
+        return {} as workoutPlan
     }
 
 }

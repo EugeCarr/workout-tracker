@@ -6,48 +6,44 @@ import { WorkoutDisplayCard } from "./WorkoutDisplayCard";
 import { WorkoutEditCreate } from "./WorkoutsEditCreate";
 import Link from "next/link";
 import { getUsers } from "../api/getUsers";
-import { useReducer } from "react";
+import { useReducer, useEffect, useState, EffectCallback, FC, Suspense} from "react";
+import { cookies } from "next/headers";
 
-export const WorkoutPlanGrid = async (): Promise<any>  => {
-    
-    const getPlans= async(): Promise<workoutPlan[]> => {
-        const workoutPlans: (workoutPlan[]) = await getWorkOutPlans();
-        return workoutPlans
-    };
+interface Props {
+    // wPlans: workoutPlan[],
+    clientUsers: userAccount[],
+    trainerUsers: userAccount[],
+    getPlansFunction: () =>Promise<workoutPlan[]>
+};
 
-    const getUsersInGroups = async(): Promise<any> => {
-        const trainers: userAccount[] = await getUsers(false);
-        const clients: userAccount[] = await getUsers(true);     
-        return {trainers, clients}
-    };    
+export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers, getPlansFunction}): React.ReactNode  => {
+    const [plans, setPlans ] = useState<workoutPlan[]>([{}] as workoutPlan[]);
+    const [trainees, setTrainees] = useState<userAccount[]>(clientUsers);
+    const [PTs, setPTs] = useState<userAccount[]>(trainerUsers);
+    const [submitCounter, setSubmitCounter] = useState<number>(0);
 
-    const changePlans = (state: workoutPlan[], change: planChangeAction ): workoutPlan[] => {
-        let plans: workoutPlan[] = change.plans
+    const incrementSubmitCounter = (): void => {
+        const newVal = submitCounter + 1;
+        setSubmitCounter(newVal)
+        return 
+    }
+    useEffect(
+        () => {
+            const getWPlans = async (): Promise<void> => {
+                console.log("Getting current plans")
+                const queriedPlan = await fetch(
+                    `/api/getWorkoutPlans`
+                );                
+                const allPlans = await queriedPlan.json()
+                // console.log(allPlans)
+                setPlans(allPlans)
+                return
+            };
+            getWPlans();
+            return 
+        }, [submitCounter]
+    );
 
-        const planIds = (plans: workoutPlan[]): number[] => {
-            let allPlans = plans.map((currentPlan)=> currentPlan?.id)
-            return allPlans.filter(Boolean)
-        }
-        if( !!planIds(state).filter( id => planIds(plans).includes(id))){
-            throw new Error("You cannot add an existing plan to the list of plans.")
-        }
-        switch(change.type){
-            case "append":
-                // let newPlans = state;
-                return [
-                    ...state,
-                    ...plans
-                ]
-        }
-        return state
-
-    };
-
-    // const plansQuery = await getPlans();
-    // const plans = await getPlans();
-    const plans: workoutPlan[] = []
-    const users = await getUsersInGroups();
-    // const [plans, changePlansReducer] = useReducer(changePlans, plansQuery);
     const planComps = plans.map((wPlan)=> {
         return (
             <>
@@ -68,8 +64,11 @@ export const WorkoutPlanGrid = async (): Promise<any>  => {
     );
     return (
         <>
-            <WorkoutEditCreate trainerUsers={users.trainers} clientUsers={users.clients} />
+            <WorkoutEditCreate trainerUsers={PTs} clientUsers={trainees} submitCounterFunction={incrementSubmitCounter}/>
+            <Suspense>
             {planComps}
+            </Suspense>
+            
         </>
     )
 };

@@ -16,17 +16,13 @@ export default function RootLayout({
     <html 
       lang="en"
     >
-      <body 
-      >
-        <AuthProvider>
-          <SiteBanner/>
+      <body>
+        <SiteBanner/>
           <div
             className="page-background"
           >
             {children}
-          </div>
-        </AuthProvider>
-        
+          </div>        
       </body>
     </html>
   );

@@ -1,12 +1,6 @@
 "use client"
 import  "../styles.css";
-import {
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    Button,
-    Input
-} from "@chakra-ui/react";
+
 import React, { useState} from "react";
 import { useRouter } from "next/navigation";
 import { loginDetails, signupDetails } from "../interfaces/interfaces";
@@ -18,7 +12,7 @@ import Link from "next/link";
 
 
 const LoginForm = (): React.ReactNode => {
-    const {authDetails, setAuthDetails} = useAuthenticationContext();
+
     
     const [login, setLogin] = useState<loginDetails>({
         email: "",

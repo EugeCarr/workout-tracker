@@ -2,16 +2,18 @@
 import Image from "next/image";
 import "./styles.css";
 import  SiteBanner from "./components/SiteBanner"
-import { Flex, Button } from "@chakra-ui/react";
 import { MainpageCard } from "./components/MainpageCard";
 
 
 const Home = () => {
   return (
-    <Flex
-      direction="row"
-      align="start"
-      justifyContent="space-between"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "start",
+        justifyContent: "space-between",
+      }}
     >
       <MainpageCard
         title="Workout Plans"
@@ -24,7 +26,7 @@ const Home = () => {
       >
 
       </MainpageCard>
-    </Flex>
+    </div>
   );
 }
 
