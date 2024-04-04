@@ -5,6 +5,7 @@ import { userAccount, workoutPlan } from "../interfaces/interfaces";
 import { userAgent } from "next/server";
 import { cookies } from "next/headers";
 import { getWorkOutPlans } from "../api/getWorkoutplans";
+import { Suspense } from "react";
 
 
 export const WorkoutPlans = async (): Promise<any> => {
@@ -12,7 +13,10 @@ export const WorkoutPlans = async (): Promise<any> => {
     const trainers: userAccount[] = await getUsers(false);
     
     return (
-        <WorkoutPlanGrid trainerUsers={trainers} clientUsers={clients} getPlansFunction={getWorkOutPlans}/>
+        <Suspense>
+            <WorkoutPlanGrid trainerUsers={trainers} clientUsers={clients} getPlansFunction={getWorkOutPlans}/>
+        </Suspense>
+        
     )
 }
 

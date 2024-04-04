@@ -1,34 +1,42 @@
+"use client"
 import { getWorkOutPlans } from "@/app/api/getWorkoutplans";
 import { WorkoutDisplayCard } from "@/app/components/WorkoutDisplayCard";
-import React, { FC } from "react";
+import React, { FC, Suspense, useState, useEffect} from "react";
 import { workoutPlan } from "@/app/interfaces/interfaces";
 
 interface Props  {
     params: any
 }
 
-export const ViewWorkoutPlan: FC<Props> = async ({params}): Promise<any> => {
+export const ViewWorkoutPlan: FC<Props> = ({params}) => {
     const {workout_id} = params
-    console.log(workout_id)
+    console.log({workout_id})
+    const [plan, setPlan] = useState<workoutPlan>({} as workoutPlan)
 
-    const getSinglePlan = async(workout_id: number): Promise<workoutPlan[]> => {
-        const workoutPlans: (workoutPlan[]) = await getWorkOutPlans(workout_id);
-        return workoutPlans
-    };
-    const workoutPlan = await getSinglePlan(workout_id);
-    console.log(workoutPlan)
-
-    // const planComps = plans.map((wPlan)=> <WorkoutDisplayCard workoutPlan={wPlan} key={wPlan.id}/>)
+    useEffect(
+        () => {
+            const getWPlan = async (): Promise<void> => {
+                console.log("Getting selected plan")
+                console.log(`/api/getWorkoutPlans`)
+                const planResponse = await fetch(
+                    `http://localhost:3000/api/getWorkoutPlans/${workout_id}`
+                );                
+                const queriedPlan = await planResponse.json()
+                console.log({queriedPlan})
+                setPlan(queriedPlan)
+                
+                return
+            };
+            console.log({plan})
+            getWPlan();
+            return 
+        }, []
+    );
     return (
-        // {
-        //     workoutPlan.map((wPlan)=> {
-        //         return (
-        //             <WorkoutDisplayCard workoutPlan={wPlan} key={wPlan.id}/>
-                    
-        //         )
-        //     })
-        // }
-        <WorkoutDisplayCard workoutPlan={workoutPlan}/>
+        <Suspense>
+            <WorkoutDisplayCard workoutPlan={plan} key={plan.id}/>
+        </Suspense>
+        
     )
 }
 

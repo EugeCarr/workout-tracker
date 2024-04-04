@@ -1,23 +1,22 @@
-"use client"
+"use server"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles.css";
 import SiteBanner from "./components/SiteBanner";
-import {AuthProvider } from "./contexts/AuthenticationContext";
+import { cookies } from "next/headers";
 
-
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
-
+}>) => {
+  const firstName: string | undefined = cookies().get("first_name")?.value
   return (
     <html 
       lang="en"
     >
       <body>
-        <SiteBanner/>
+        <SiteBanner first_name={firstName}/>
           <div
             className="page-background"
           >
@@ -27,3 +26,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout

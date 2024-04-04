@@ -66,7 +66,7 @@ export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers, getPlansF
         <>
             <WorkoutEditCreate trainerUsers={PTs} clientUsers={trainees} submitCounterFunction={incrementSubmitCounter}/>
             <Suspense>
-            {planComps}
+                {planComps}
             </Suspense>
             
         </>

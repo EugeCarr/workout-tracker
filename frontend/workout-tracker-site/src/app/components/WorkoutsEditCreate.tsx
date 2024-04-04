@@ -65,7 +65,6 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
             <option key={user.id} value={user.id}>{`${user.first_name} ${user.last_name}`}</option>
         )
     });
-    console.log({editedWPlan})
     return (
         <div
                     className="login-card"
@@ -77,7 +76,6 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                 >
                     <form 
                         id="create-workout-plan"
-                        action={buttonAction}
                         style={{
                             display: "flex",
                             flexDirection: "column",
@@ -138,7 +136,7 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                             name="login-button"
                             className="login-button"
                             disabled={!editedWPlan.name || !editedWPlan.client_id || !editedWPlan.trainer_id}
-                            type="submit"
+                            // type="submit"
                             onClick={buttonAction}
                         >Add workout Plan
                         </button>

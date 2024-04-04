@@ -10,7 +10,7 @@ export const getUserDetails = async (): Promise<void> =>{
     console.log(fetchUserURL)
 
     const accessToken = await getAccessTokenServer()
-    console.log(accessToken)
+    // console.log(accessToken)
     try{
         const userRes = await myFetch(
             fetchUserURL,
@@ -23,12 +23,10 @@ export const getUserDetails = async (): Promise<void> =>{
             }
         );
 
-        // check planRes.status to know whether you need to refresh the token or not
-        // Now I need to reset the cookies to get the username and name values
         cookies().set({name: 'email', value: userRes[0]["email"], httpOnly: true})
         cookies().set({name: 'first_name', value: userRes[0]["first_name"], httpOnly: true})
         cookies().set({name: 'last_name', value: userRes[0]["last_name"], httpOnly: true})
-        return 
+        return
 
     }catch(error){
         console.log(error)

@@ -1,15 +1,22 @@
 "use server"
-import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../../config";
-import { authDetails, workoutPlan } from "../../interfaces/interfaces";
-import { myFetch } from "../fetchWrapper";
+import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../../../config";
+import { authDetails, workoutPlan } from "../../../interfaces/interfaces";
+import { myFetch } from "../../fetchWrapper";
 // import { getAccessTokenClient } from "./getAccessTokenClient";
-import { getAccessTokenServer } from "../getAccessTokenServer";
+import { getAccessTokenServer } from "../../getAccessTokenServer";
 
 
 export const GET = async (
     request: Request,
+    {params}: {params: {workout_id?: number}}
     )=>{
-        let fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 
+        console.log({params})
+        let fetchplansURL = "";
+        if(!params?.workout_id){
+            fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 
+        }else{
+            fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT + "/" + params.workout_id
+        }
 
         const accessToken = await getAccessTokenServer();
 
