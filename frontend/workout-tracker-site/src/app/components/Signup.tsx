@@ -123,8 +123,8 @@ const SignupForm = (): React.ReactNode => {
                 !!badSignup && <p className="formErrorMessage">{badSignup}</p>
             }
             <button
-                name="login-button"
-                className="login-button"
+                name="form-button"
+                className="form-button"
                 disabled={!errorMessages && !signup.email || !signup.password || !signup.re_password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}

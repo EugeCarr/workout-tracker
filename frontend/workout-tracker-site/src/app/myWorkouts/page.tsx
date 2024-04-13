@@ -14,7 +14,7 @@ export const WorkoutPlans = async (): Promise<any> => {
     
     return (
         <Suspense>
-            <WorkoutPlanGrid trainerUsers={trainers} clientUsers={clients} getPlansFunction={getWorkOutPlans}/>
+            <WorkoutPlanGrid trainerUsers={trainers} clientUsers={clients} />
         </Suspense>
         
     )

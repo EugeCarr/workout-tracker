@@ -133,8 +133,8 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                             }
                         </select>
                         <button
-                            name="login-button"
-                            className="login-button"
+                            name="form-button"
+                            className="form-button"
                             disabled={!editedWPlan.name || !editedWPlan.client_id || !editedWPlan.trainer_id}
                             // type="submit"
                             onClick={buttonAction}

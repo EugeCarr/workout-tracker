@@ -68,8 +68,8 @@ const LoginForm = (): React.ReactNode => {
                 !!badLogin && <p className="formErrorMessage">{badLogin}</p>
             }
             <button
-                name="login-button"
-                className="login-button"
+                name="form-button"
+                className="form-button"
                 disabled={!login.email || !login.password}
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}

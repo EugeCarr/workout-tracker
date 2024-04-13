@@ -42,6 +42,11 @@ export const MainpageCard: FC<mainPageCardDetails> = ({
                     </p>
                     <img
                         src={photoSrc}
+                        style={
+                            {
+                                width: "18rem"
+                            }
+                        }
                     />
                     <p                
                     >

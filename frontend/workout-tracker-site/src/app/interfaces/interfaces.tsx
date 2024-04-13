@@ -60,3 +60,9 @@ export interface planChangeAction {
     type: string,
     plans: workoutPlan[]
 };
+
+export interface exerciseType {
+    id?: number;
+    name: string;
+    description: string;
+}

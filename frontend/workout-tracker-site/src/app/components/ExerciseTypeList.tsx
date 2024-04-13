@@ -13,9 +13,10 @@ interface Props {
     // wPlans: workoutPlan[],
     clientUsers: userAccount[],
     trainerUsers: userAccount[],
+    getPlansFunction: () =>Promise<workoutPlan[]>
 };
 
-export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.ReactNode  => {
+export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers, getPlansFunction}): React.ReactNode  => {
     const [plans, setPlans ] = useState<workoutPlan[]>([{}] as workoutPlan[]);
     const [trainees, setTrainees] = useState<userAccount[]>(clientUsers);
     const [PTs, setPTs] = useState<userAccount[]>(trainerUsers);

@@ -26,6 +26,14 @@ const Home = () => {
       >
 
       </MainpageCard>
+      <MainpageCard
+        title="Exercise Library"
+        photoSrc="https://t3.ftcdn.net/jpg/02/65/07/74/360_F_265077477_ZGCVj8sIdqcwSjiAAYYap6AY0ukgdry3.jpg"
+        description="Read and create different movements to put in your plans"
+        pageRoute="/exerciseLibrary"
+      >
+
+      </MainpageCard>
     </div>
   );
 }
