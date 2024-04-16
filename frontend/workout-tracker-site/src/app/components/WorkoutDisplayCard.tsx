@@ -3,7 +3,7 @@ import { workoutPlan } from "../interfaces/interfaces";
 import React, { FC } from "react";
 
 interface Props {
-    workoutPlan: workoutPlan;
+    workoutPlan: workoutPlan | undefined;
 }
 
 export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode => {
@@ -28,13 +28,13 @@ export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode 
                 <p
                     className="title"
                 >
-                    {workoutPlan.name}
+                    {workoutPlan?.name}
                 </p>
                 <p>
-                    {`Client: ${workoutPlan.client?.first_name} ${workoutPlan.client?.last_name} `}
+                    {`Client: ${workoutPlan?.client?.first_name} ${workoutPlan?.client?.last_name} `}
                 </p>
                 <p>
-                    {`Trainer: ${workoutPlan.trainer?.first_name} ${workoutPlan.trainer?.last_name}`}
+                    {`Trainer: ${workoutPlan?.trainer?.first_name} ${workoutPlan?.trainer?.last_name}`}
                 </p>
             </div>
         </div>

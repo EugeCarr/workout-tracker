@@ -1,6 +1,5 @@
 "use server"
 import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../../../config";
-import { authDetails, workoutPlan } from "../../../interfaces/interfaces";
 import { myFetch } from "../../fetchWrapper";
 // import { getAccessTokenClient } from "./getAccessTokenClient";
 import { getAccessTokenServer } from "../../getAccessTokenServer";
@@ -27,7 +26,8 @@ export const GET = async (
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": "Bearer " + accessToken?.value
+                        "Authorization": "Bearer " + accessToken?.value,
+                        "cache": 'no-store'
                         },
                 }
             );

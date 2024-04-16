@@ -15,10 +15,11 @@ interface Props {
     trainerUsers: userAccount[],
 };
 
-export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.ReactNode  => {
+// export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.ReactNode  => {
+export const WorkoutPlanGrid = (): React.ReactNode => {
     const [plans, setPlans ] = useState<workoutPlan[]>([{}] as workoutPlan[]);
-    const [trainees, setTrainees] = useState<userAccount[]>(clientUsers);
-    const [PTs, setPTs] = useState<userAccount[]>(trainerUsers);
+    const [trainees, setTrainees] = useState<userAccount[]>([{}] as userAccount[]);
+    const [PTs, setPTs] = useState<userAccount[]>([{}] as userAccount[]);
     const [submitCounter, setSubmitCounter] = useState<number>(0);
 
     const incrementSubmitCounter = (): void => {
@@ -26,6 +27,30 @@ export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.R
         setSubmitCounter(newVal)
         return 
     }
+
+    useEffect(
+        () => {
+
+            const getAllUsers = async(): Promise<void> => {
+
+                const clientsRes = await fetch(
+                    `http://localhost:3000/api/getUsers/1`
+                );   
+                const clients = await clientsRes.json();
+                setTrainees(clients)
+
+                const trainersRes = await fetch(
+                    `http://localhost:3000/api/getUsers/0`
+                );   
+                const trainers = await trainersRes.json();
+                setPTs(trainers)
+                return 
+            }
+            getAllUsers();
+            return
+        }, []
+    );
+
     useEffect(
         () => {
             const getWPlans = async (): Promise<void> => {
@@ -42,6 +67,8 @@ export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.R
             return 
         }, [submitCounter]
     );
+
+    
 
     const planComps = plans.map((wPlan)=> {
         return (

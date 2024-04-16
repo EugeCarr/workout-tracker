@@ -7,9 +7,7 @@ import { ExerciseTypeGrid } from "../components/ExerciseTypeGrid";
 const WorkoutPlans = (): React.ReactNode => {
     
     return (
-        <Suspense>
             <ExerciseTypeGrid/>
-        </Suspense>
         
     )
 }
