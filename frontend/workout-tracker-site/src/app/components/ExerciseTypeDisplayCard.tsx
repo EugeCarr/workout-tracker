@@ -11,6 +11,7 @@ export const ExerciseTypeDisplayCard: FC<Props > = ({ exerciseType}): React.Reac
         return (
             <div
                 className="muscle-group-card"
+                key={muscle.id}
             >
                 {muscle.name}
             </div>

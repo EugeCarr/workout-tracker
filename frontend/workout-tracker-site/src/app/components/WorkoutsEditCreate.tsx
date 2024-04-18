@@ -67,7 +67,7 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
     });
     return (
         <div
-                    className="login-card"
+                    className="form-card"
                     style={{
                         display: "flex",
                         flexDirection: "column",

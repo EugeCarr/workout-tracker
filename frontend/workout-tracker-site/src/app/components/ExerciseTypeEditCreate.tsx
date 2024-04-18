@@ -49,7 +49,7 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
     };
     return (
         <div
-                    className="login-card"
+                    className="form-card"
                     style={{
                         display: "flex",
                         flexDirection: "column",
@@ -57,17 +57,29 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
                     }}           
                 >
                     <form 
-                        id="create-exercise-type"
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center"
-                        }} 
+                        id="create-exercise-type"                        
                     >
-                        <p
-                            className="title"
-                        >Create Exercise
-                        </p>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <p
+                                className="title"
+                            >Create Exercise
+                            </p>
+                        </div>
+                        
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "start"
+                            }} 
+                        >
+                            
                         <label htmlFor="name" className="standard-form-label">Name: </label>
                         <input
                             name="name"
@@ -85,17 +97,27 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
                             name="description"
                             placeholder="Description"
                             id="description"
-                            type="text"
+                            width="80vw"
+                            type="textarea"
+                            size={100}
+                            spellCheck={true}
                             required
                             className="form-input"
                             value={editedExerciseType.description}
                             onChange = {(e) => {handleChange(e)}}
                         />
-                        <label htmlFor="muscleGroups" className="standart-form-label">Muscle groups: </label>
+                        <label htmlFor="muscleGroups" className="standard-form-label">Muscle groups: </label>
                         <Multiselect
                             options={muscleGroupOptions}
                             selectionLimit={5}
                             displayValue="name"
+                            className="form-input"
+                            style={{
+                                chips: {
+                                    background: "#4BFB68",
+                                    color: "#141414"
+                                }
+                            }}
                             selectedValues={editedExerciseType.muscleGroups}
                             onSelect={(e: React.ChangeEvent<HTMLInputElement>): void => { 
                                 setEditedExerciseType(
@@ -116,14 +138,22 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
                                 return
                             }}
                         />
-
-                        <button
-                            name="form-button"
-                            className="form-button"
-                            disabled={!editedExerciseType.name || !editedExerciseType.description || !editedExerciseType.muscleGroups}
-                            onClick={buttonAction}
-                        >Create Exercise 
-                        </button>
+                        </div>                       
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}
+                        >
+                            <button
+                                name="form-button"
+                                className="form-button"
+                                disabled={!editedExerciseType.name || !editedExerciseType.description || !editedExerciseType.muscleGroups}
+                                onClick={buttonAction}
+                            >Create Exercise 
+                            </button>
+                        </div>
                     </form>
                     
                 </div>

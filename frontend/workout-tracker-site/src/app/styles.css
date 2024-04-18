@@ -75,7 +75,10 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 15vw;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-top: 15vw;
+    margin-bottom: 15vw;
 }
 
 .login-input {
@@ -83,9 +86,29 @@ p {
     margin-bottom: 0.25rem
 }
 
+
+.form-card {
+    background-color: var(--card-background-color);
+    border-radius: 2px;
+    border-width: 1px;
+    box-shadow: 1px 1px 3px 3px grey;
+    padding-top: 0.2rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+}
 .form-button {
     margin-top: 0.25rem;
-    margin-bottom: 0.25rem
+    margin-bottom: 0.25rem; 
+    /* /* border-color: var(--accent-colour); */
+    /* color: white;  */
+    /* background-color: var(--background-color); */
+    border-radius: 5px;  
 }
 
 .formErrorMessage {
@@ -103,6 +126,8 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: "space-between";
+    background-color: white;
+    /* color: var(--accent-colour); */
 }
 
 .standard-form-label {
@@ -113,9 +138,13 @@ p {
 .muscle-group-card {
     background-color: var(--accent-colour);
     color: var(--card-background-color);
-    border-radius: 5%;
+    border-radius: 5px;
     height: 1rem;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
+    padding: 0.1rem;
+    padding-bottom: 0.15rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
 
 }
