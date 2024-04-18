@@ -73,12 +73,17 @@ class SessionUpdateRetrieve(ClientReadOnlyPermissionMixin, generics.RetrieveUpda
         else:
             return models.Session.objects.filter(workoutPlan__trainer_id=user.id)
     
-class ExerciseTypeCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
+class ExerciseTypeCreateList(ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.ExerciseTypeSerializer
     throttle_classes = [UserRateThrottle]
     queryset = models.ExerciseType.objects.all()
     
-    
+class ExerciseTypeUpdateDelete(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.ExerciseTypeSerializer
+    throttle_classes = [UserRateThrottle]
+    queryset = models.ExerciseType.objects.all()
+
+
 class ExerciseCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.ExerciseSerializer
     throttle_classes = [UserRateThrottle]
@@ -122,3 +127,11 @@ class UserAccountList(generics.ListAPIView):
             return data
         except KeyError:
             return HttpResponseBadRequest(content={"You must specify whether clients or trainers is requested"})
+        
+class MuscleGroupListCreate(ClientReadOnlyPermissionMixin, CreateListMixin, generics.ListCreateAPIView):
+    serializer_class = serializers.MuscleGroupSerializer
+    throttle_classes = [UserRateThrottle]
+    queryset = models.MuscleGroup.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+    

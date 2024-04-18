@@ -20,7 +20,6 @@ export const GET = async (request: Request) => {
                         },
                 }
             );
-            console.log(response)
             return new Response(
                 JSON.stringify(response),
                 {status: 200}
