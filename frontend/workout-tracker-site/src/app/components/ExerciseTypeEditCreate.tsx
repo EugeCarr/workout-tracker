@@ -1,14 +1,22 @@
 "use client";
-import { exerciseType, userAccount, workoutPlan } from "../interfaces/interfaces";
-import React, { ChangeEvent, FC } from "react";
-import { useState } from "react";
+import { exerciseType, muscleGroup, userAccount, workoutPlan } from "../interfaces/interfaces";
+import React, { ChangeEvent, FC, useState } from "react";
+import Multiselect from "multiselect-react-dropdown";
+
 
 interface Props {
     submitCounterFunction: ()=> void;
+    muscleGroups: muscleGroup[]
 }
 
-export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction}): React.ReactNode => {
+export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, muscleGroups}): React.ReactNode => {
     const [editedExerciseType, setEditedExerciseType] = useState<exerciseType>({} as exerciseType)
+    const muscleGroupOptions = muscleGroups?.map((muscle)=> {
+        return {
+            id: muscle.id,
+            name: muscle.name
+        }
+    });
 
     const buttonAction = async (): Promise<void> => {
         console.log("testing button")
@@ -39,7 +47,6 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction}): Re
             }
         )
     };
-
     return (
         <div
                     className="login-card"
@@ -84,10 +91,36 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction}): Re
                             value={editedExerciseType.description}
                             onChange = {(e) => {handleChange(e)}}
                         />
+                        <label htmlFor="muscleGroups" className="standart-form-label">Muscle groups: </label>
+                        <Multiselect
+                            options={muscleGroupOptions}
+                            selectionLimit={5}
+                            displayValue="name"
+                            selectedValues={editedExerciseType.muscleGroups}
+                            onSelect={(e: React.ChangeEvent<HTMLInputElement>): void => { 
+                                setEditedExerciseType(
+                                    {
+                                        ...editedExerciseType,
+                                        muscleGroups: e as unknown as muscleGroup[]|| [{}] as muscleGroup[]
+                                    }
+                                )
+                                return
+                            }}
+                            onRemove={(e: React.ChangeEvent<HTMLInputElement>): void => { 
+                                setEditedExerciseType(
+                                    {
+                                        ...editedExerciseType,
+                                        muscleGroups: e as unknown as muscleGroup[]|| [{}] as muscleGroup[]
+                                    }
+                                )
+                                return
+                            }}
+                        />
+
                         <button
                             name="form-button"
                             className="form-button"
-                            disabled={!editedExerciseType.name || !editedExerciseType.description }
+                            disabled={!editedExerciseType.name || !editedExerciseType.description || !editedExerciseType.muscleGroups}
                             onClick={buttonAction}
                         >Create Exercise 
                         </button>

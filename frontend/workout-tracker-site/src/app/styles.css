@@ -109,3 +109,13 @@ p {
     color: var(--text-colour);
     padding-right: "2rem";
 }
+
+.muscle-group-card {
+    background-color: var(--accent-colour);
+    color: var(--card-background-color);
+    border-radius: 5%;
+    height: 1rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+
+}

@@ -7,6 +7,16 @@ interface Props {
 }
 
 export const ExerciseTypeDisplayCard: FC<Props > = ({ exerciseType}): React.ReactNode => {
+    const muscleGroupCardComps = exerciseType.muscleGroups.map((muscle)=>{
+        return (
+            <div
+                className="muscle-group-card"
+            >
+                {muscle.name}
+            </div>
+        )
+    });
+
     return (
         <div
             style={{
@@ -24,11 +34,30 @@ export const ExerciseTypeDisplayCard: FC<Props > = ({ exerciseType}): React.Reac
                     flexDirection: "column"
                 }}
             >
-                <p
-                    className="title"
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center"
+                    }}
                 >
-                    {exerciseType.name}
-                </p>
+                    <p
+                        className="title"
+                    >{exerciseType.name}</p>
+                    <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems:"center"
+                    }}
+                    >
+                        {
+                            muscleGroupCardComps
+                        }
+                    </div>
+                </div>
                 <p>
                     {`Description: ${exerciseType?.description}`}
                 </p>

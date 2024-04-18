@@ -61,8 +61,15 @@ export interface planChangeAction {
     plans: workoutPlan[]
 };
 
+export interface muscleGroup {
+    id: number;
+    name?: string;
+}
+
 export interface exerciseType {
     id?: number;
     name: string;
     description: string;
+    muscleGroups: muscleGroup[]
 }
+
