@@ -17,4 +17,7 @@ export const GET_MULTIPLE_USERS_ENDPOINT = "/api/users/";
 export const GET_MUSCLE_GROUPS_ENDPOINT = "/api/muscle-groups"
 
 export const POST_CREATE_WORKOUT_PLANS = "/api/workout-plans";
+
 export const POST_CREATE_EXERCISE_TYPES = "/api/exercise-types";
+
+export const POST_CREATE_SESSION = "/api/workout-plans/sessions";

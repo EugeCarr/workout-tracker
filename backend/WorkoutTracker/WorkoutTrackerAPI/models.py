@@ -8,6 +8,8 @@ class WorkoutPlan(models.Model):
     client = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="client")
     trainer = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="PT")
     name = models.CharField(max_length=255)
+    startDate = models.DateField(null= True, blank=True)
+    endDate = models.DateField(null=True, blank=True)
     
     def __str__(self) -> str:
         return "{}: {}".format(self.client.first_name, self.name)

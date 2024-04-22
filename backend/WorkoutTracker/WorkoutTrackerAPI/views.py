@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .permissions import IsClient, IsTrainer
 from accounts import serializers as accountSerializers
 from accounts.models import UserAccount
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CreateListMixin(object):
@@ -54,7 +55,8 @@ class WorkoutPlanManage(ClientReadOnlyPermissionMixin, generics.RetrieveUpdateDe
 class SessionManage(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.SessionSerializer
     throttle_classes = [UserRateThrottle]
-    
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['workoutPlan_id']
     def get_queryset(self):
         user = self.request.user
         if user.groups.filter(name="Client").exists():

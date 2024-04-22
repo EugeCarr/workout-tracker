@@ -22,7 +22,7 @@ class WorkoutPlanSerializer(serializers.ModelSerializer):
     sessions = SessionHelperSerializer(many=True, read_only=True)
     class Meta():
         model = models.WorkoutPlan
-        fields = ["id", "client", "client_id", "trainer", "trainer_id", "name", "sessions"]
+        fields = ["id", "client", "client_id", "trainer", "trainer_id", "name", "sessions", "startDate", "endDate"]
 
 class WorkoutPlanHelperSerializer(serializers.ModelSerializer):
     client_id = serializers.IntegerField(write_only= True)
@@ -31,7 +31,7 @@ class WorkoutPlanHelperSerializer(serializers.ModelSerializer):
     trainer = UserManagementSerializer(read_only=True)
     class Meta():
         model = models.WorkoutPlan
-        fields = ["id", "client", "client_id", "trainer", "trainer_id", "name"]
+        fields = ["id", "client", "client_id", "trainer", "trainer_id", "name", "startDate", "endDate"]
                
 class SessionSerializer(serializers.ModelSerializer):
     workoutPlan_id =serializers.IntegerField(write_only=True)

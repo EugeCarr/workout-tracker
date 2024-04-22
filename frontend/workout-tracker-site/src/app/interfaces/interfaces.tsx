@@ -32,8 +32,8 @@ export interface session {
     id: number;
     workoutPlan_id: number;
     name: string;
-    plannedDate: Date;
-    completedDate: Date;
+    plannedDate: string;
+    completedDate?: string;
     description: string
 }
 

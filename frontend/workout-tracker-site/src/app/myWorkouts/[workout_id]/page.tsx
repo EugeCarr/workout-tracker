@@ -2,7 +2,9 @@
 import { getWorkOutPlans } from "@/app/api/getWorkoutplans";
 import { WorkoutDisplayCard } from "@/app/components/WorkoutDisplayCard";
 import React, { FC, Suspense, useState, useEffect} from "react";
-import { workoutPlan } from "@/app/interfaces/interfaces";
+import { workoutPlan, session } from "@/app/interfaces/interfaces";
+import { SessionTable } from "@/app/components/SessionTable";
+import { SessionModal } from "@/app/components/SessionModal";
 
 interface Props  {
     params: any
@@ -10,31 +12,33 @@ interface Props  {
 
 export const ViewWorkoutPlan: FC<Props> = ({params}) => {
     const {workout_id} = params
-    console.log({workout_id})
     const [plan, setPlan] = useState<workoutPlan>({} as workoutPlan)
+    const [selectedSession, setSelectedSession] = useState<session>({} as session)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [queriedSessions, setQueriedSessions] = useState<session[]>([] as session[])
 
     useEffect(
         () => {
             const getWPlan = async (): Promise<void> => {
-                console.log("Getting selected plan")
-                console.log(`/api/getWorkoutPlans`)
                 const planResponse = await fetch(
                     `http://localhost:3000/api/getWorkoutPlans/${workout_id}`
                 );                
                 const queriedPlan = await planResponse.json()
-                console.log({queriedPlan})
                 setPlan(queriedPlan)
                 
                 return
             };
-            console.log({plan})
             getWPlan();
             return 
         }, []
     );
+    
+    console.log({plan})
     return (
         <Suspense>
             <WorkoutDisplayCard workoutPlan={plan} key={plan.id}/>
+            <SessionTable workoutPlanId={plan.id || 0} setIsModalOpen={setIsModalOpen} setSelectedSession={setSelectedSession} sessions={queriedSessions}/>
+            {isModalOpen && <SessionModal closeModal={()=> setIsModalOpen(false)} session={selectedSession}/>}
         </Suspense>
         
     )

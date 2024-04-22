@@ -3,8 +3,10 @@ body {
     /* --primary-colour: #EEF2A6; */
     --background-color: #040404;
     --card-background-color: #141414;
+    --lighter-card-background-color: #242424;
     --link-hover-color: #4BFB68;
     --accent-colour: #4BFB68;
+    --dark-accent-color:  #4afa67c4;
     --text-colour: #C3FECD;
     --default-small-text-size: 1vw;
     --default-medium-text-size: 3vw;
@@ -37,6 +39,7 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--card-background-color);
     color: var(--accent-colour);
 }
@@ -103,12 +106,20 @@ p {
     margin-bottom: 3vw;
 }
 .form-button {
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.25rem; 
+    border: none;
+    padding: 0.25rem 0.5rem;
     /* /* border-color: var(--accent-colour); */
-    /* color: white;  */
-    /* background-color: var(--background-color); */
-    border-radius: 5px;  
+    background-color: var(--dark-accent-color);
+    color:white;
+    border-radius: 10px;  
+}
+
+.form-button:hover {
+    cursor: pointer;
+    background-color: var(--accent-colour);
+    border: 1px;
 }
 
 .formErrorMessage {
@@ -147,4 +158,109 @@ p {
     padding-left: 0.2rem;
     padding-right: 0.2rem;
 
+}
+
+.session-table {
+    display: block;
+    overflow: hidden;
+    table-layout: fixed;
+    border-collapse: collapse;
+    box-shadow: 0px 10px 10px white;
+    border-radius: 10px;
+    white-space: nowrap;
+    width: 100em;
+    max-width: 80%;
+    margin: auto;
+    table-layout: auto;
+    overflow-x: auto;
+    color: var(--card-background-color);
+}
+
+.session-table thead {
+    color: var(--accent-colour);
+    background-color:var(--card-background-color);
+  }
+  
+  .session-table th,
+  .session-table td {
+    padding: 0.8rem;
+  }
+  
+  .session-table td {
+    border-top: 0.5px solid #ddd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  .session-table tbody tr {
+    background-color: var(--card-background-color);
+  }
+  
+  .session-table tbody tr:hover {
+    background-color: var(--lighter-card-background-color);
+  }
+
+.actions-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.actions-col svg {
+    cursor: pointer;
+}
+
+.delete-btn {
+    color: darkred;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+.delete-btn:hover {
+    color: red
+}
+
+.edit-btn {
+    margin-right: 3px;
+    margin-left: 3px;
+    color: var(--text-colour);
+}
+
+.edit-btn:hover {
+    color: var(--accent-colour)
+}
+
+.modal-container {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #bbbbbb; 
+    opacity: 0.9; 
+
+}
+
+.modal {
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color: var(--card-background-color);
+    color: var(--text-colour);
+    width: 50vw;
+    opacity: 1;
+    display: grid;
+    grid-template-columns: 7fr 10px;
+
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    color: var(--accent-colour);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
