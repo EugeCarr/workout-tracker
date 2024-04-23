@@ -2,22 +2,27 @@
 import { getWorkOutPlans } from "@/app/api/getWorkoutplans";
 import { WorkoutDisplayCard } from "@/app/components/WorkoutDisplayCard";
 import React, { FC, Suspense, useState, useEffect} from "react";
-import { workoutPlan, session, exercise } from "@/app/interfaces/interfaces";
+import { workoutPlan, session, exercise, exerciseType } from "@/app/interfaces/interfaces";
 import { SessionTable } from "@/app/components/SessionTable";
 import { SessionModal } from "@/app/components/SessionModal";
+import { SessionExerciseTable } from "@/app/components/SessionExerciseTable";
+import { SessionExerciseModal } from "@/app/components/SessionExerciseModal";
 
 interface Props  {
     params: any
 }
 
 export const ViewWorkoutPlan: FC<Props> = ({params}) => {
-    const {workout_id} = params
-    const [plan, setPlan] = useState<workoutPlan>({} as workoutPlan)
-    const [selectedSession, setSelectedSession] = useState<session>({} as session)
-    const [selectedExercise, setSelectedExercise] = useState<exercise>({} as exercise)
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-    // const [queriedSessions, setQueriedSessions] = useState<session[]>([] as session[])
-    const [sessionsUpdatedCounter, setSessionsUpdatedCounter] = useState<number>(0);
+    const {workout_id} = params;
+    const [plan, setPlan] = useState<workoutPlan>({} as workoutPlan);
+    const [exerciseTypes, setExerciseTypes] = useState<exerciseType[]>([] as exerciseType[]);
+    const [selectedSession, setSelectedSession] = useState<session>({} as session);
+    const [sessionsUpdatedCounter, setSessionsUpdatedCounter] = useState<number>(0);    
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [selectedExercise, setSelectedExercise] = useState<exercise>({} as exercise);
+    const [selectedViewSession, setSelectedViewSession] = useState<session>({} as session)
+    const [isExerciseModalOpen, setIsExerciseModalOpen] = useState<boolean>(false);
+    
     const [exercisesUpdatedCounter, setExercisesUpdatedCounter] = useState<number>(0);
 
     useEffect(
@@ -31,28 +36,23 @@ export const ViewWorkoutPlan: FC<Props> = ({params}) => {
                 
                 return
             };
+            const getExerciseTypes = async (): Promise<void> => {
+                console.log("Getting current exercise types")
+                const queriedTypes = await fetch(
+                    `api/getExerciseTypes`
+                );                
+                const allTypes = await queriedTypes.json()
+                setExerciseTypes(allTypes)
+                return
+            };
+            getExerciseTypes();            
             getWPlan();
             return 
         }, []
     );
-    
-    // useEffect(
-    //     () => {
-    //         const getSessions = async(workoutPlan_id: number): Promise<void> => {
-    //             const sessionsRes = await fetch(
-    //                 `http://localhost:3000/api/getWorkoutPlans/getWorkoutSessions/${workoutPlan_id}`
-    //             )
-    //             const qSessions = await sessionsRes.json();
-    //             setQueriedSessions(qSessions)
-    //             return 
-    //         };            
-    //         getSessions(workout_id);
-    //         return
-    //     }, [sessionsUpdatedCounter]
-    // );
 
-    // console.log({queriedSessions})
     console.log({sessionsUpdatedCounter})
+    console.log({exerciseTypes})
     return (
         <Suspense>
             <WorkoutDisplayCard workoutPlan={plan} key={plan.id}/>
@@ -61,15 +61,37 @@ export const ViewWorkoutPlan: FC<Props> = ({params}) => {
                 setIsModalOpen={setIsModalOpen}
                 setSelectedSession={setSelectedSession}
                 sessionsUpdatedCounter={sessionsUpdatedCounter}
+                setSelectedViewSession={setSelectedViewSession}
              />
             {
-            isModalOpen && 
-            <SessionModal 
-                closeModal={()=> setIsModalOpen(false)}
-                session={selectedSession}
-                updateCounter={()=> {setSessionsUpdatedCounter(sessionsUpdatedCounter + 1)}}
-                workoutPlan_id={workout_id}
-            />}
+                isModalOpen && 
+                <SessionModal 
+                    closeModal={()=> setIsModalOpen(false)}
+                    session={selectedSession}
+                    updateCounter={()=> {setSessionsUpdatedCounter(sessionsUpdatedCounter + 1)}}
+                    workoutPlan_id={workout_id}
+                />
+            }
+            {
+                !!selectedViewSession.id &&
+                <SessionExerciseTable
+                    setIsExerciseModalOpen={(isOpen: boolean): void=> setIsExerciseModalOpen(isOpen)}
+                    session={selectedViewSession}
+                    updateCounter={exercisesUpdatedCounter}
+                    setSelectedExercise={(ex:exercise)=> setSelectedExercise(ex)}                        
+                />
+            }
+            {
+                !!selectedViewSession.id &&
+                isExerciseModalOpen &&
+                <SessionExerciseModal
+                    exercise={selectedExercise}
+                    closeModal={()=> setIsExerciseModalOpen(false)}
+                    setUpdateCounter={()=> setExercisesUpdatedCounter(exercisesUpdatedCounter + 1)}
+                    session_id={selectedViewSession.id}
+                    exerciseTypes={exerciseTypes}
+                />
+            }
         </Suspense>
         
     )

@@ -1,16 +1,17 @@
 "use client";
-import { session, workoutPlan } from "../interfaces/interfaces";
+import { session } from "../interfaces/interfaces";
 import React, { FC, useState, useEffect } from "react";
-import { BsFillTrash2Fill, BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
-
+import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
+import { BiSolidZoomIn } from "react-icons/bi";
 interface Props {
     workoutPlanId: number;
     setIsModalOpen: (isOpen: boolean)=> void;
     setSelectedSession: (session: session) => void;
     sessionsUpdatedCounter: number;
+    setSelectedViewSession: (session: session) => void;
 }
 
-export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter}): React.ReactNode => {
+export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter, setSelectedViewSession}): React.ReactNode => {
     console.log({workoutPlanId})
     const [listSessions, SetListSessions] = useState<session[]>([] as session[]);
 
@@ -29,17 +30,11 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
         }, [sessionsUpdatedCounter]
     );
 
-    const deleteSession = async (session_id: number): Promise<void> => {
-        setTimeout(() => {
-            console.log(`deleteSession: ${session_id}`)
-        }, 1000);
+    const deleteSession = (session_id: number): void => {
         return 
     };
 
-    const editSession = async (session_id: number): Promise<void> => {
-        setTimeout(() => {
-            console.log(`edit Session: ${session_id}`)
-        }, 1000);
+    const editSession = (session_id: number): void => {
         const selectSession = listSessions.find((sess)=> sess.id === session_id) || {} as session
         console.log(selectSession)
         setSelectedSession(selectSession);
@@ -47,6 +42,13 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
         
         return 
     };
+
+    const viewSession = (session_id: number): void => {
+        const selectViewSession = listSessions.find((sess)=> sess.id === session_id) || {} as session
+        console.log({selectViewSession})
+        setSelectedViewSession(selectViewSession);        
+        return 
+    }
 
     return (
         <>
@@ -123,6 +125,11 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
                                                 className="edit-btn"
                                                 onClick={()=> editSession(session.id)}
                                                 title="Edit session"
+                                            />
+                                            <BiSolidZoomIn
+                                                className="edit-btn"
+                                                onClick={()=> viewSession(session.id)}
+                                                title="View session"
                                             />
                                         </span>
                                     </td>

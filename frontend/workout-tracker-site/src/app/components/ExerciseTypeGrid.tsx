@@ -19,7 +19,6 @@ export const ExerciseTypeGrid: FC= (): React.ReactNode  => {
                     `api/getExerciseTypes`
                 );                
                 const allTypes = await queriedTypes.json()
-                // console.log(allPlans)
                 setExerciseTypes(allTypes)
                 return
             };
