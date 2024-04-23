@@ -7,10 +7,12 @@ import { MdCancel } from "react-icons/md"
 
 interface Props {
     session: session;
-    closeModal: () => void
+    closeModal: () => void;
+    updateCounter: () => void;
+    workoutPlan_id: number;
 }
 
-export const SessionModal: FC<Props> = ({session, closeModal}): React.ReactNode => {
+export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, workoutPlan_id}): React.ReactNode => {
     const [editedSession, setEditedSession] = useState<session>(session || {} as session)
 
     const getDateString = (date: Date): string =>{
@@ -36,31 +38,36 @@ export const SessionModal: FC<Props> = ({session, closeModal}): React.ReactNode 
 
     const buttonAction = async (): Promise<void> => {
         console.log("testing button for modal")
-        // const isCreate = !editedSession?.id;
         let url = "";
         let actionMethod = ""
         if(!editedSession?.id){
             url = "/api/createSession";
             actionMethod = "POST";
         }else{
-            url = `api/updateSession/${editedSession.id}`;
+            url = `http://localhost:3000/api/updateSession/${editedSession.id}`;
             actionMethod = "PUT";
         }
+        console.log({url, actionMethod})
+        console.log(editedSession)
+        const requestSession = {
+            name: editedSession.name,
+            description: editedSession.description,
+            plannedDate: editedSession.plannedDate,
+            workoutPlan_id: workoutPlan_id
+        }
+        console.log({requestSession})
         const writeSession: Response = await fetch(
             url,
             {
                 method: actionMethod,
-                body: JSON.stringify(editedSession)
+                body: JSON.stringify(requestSession)
             }
         );
         const writtenSession = await writeSession.json();
         console.log({writtenSession});
         if(!!writtenSession){
-            setEditedSession({
-                name: "",
-                description: "",
-                plannedDate: ""
-            } as session);
+            updateCounter();
+            closeModal();
         }
         return 
     };
@@ -72,7 +79,7 @@ export const SessionModal: FC<Props> = ({session, closeModal}): React.ReactNode 
             <div 
                 className="modal"
             >
-                <form
+                <div
                     id="create-or-edit-session"
                     style={{
                         display: "flex",
@@ -129,7 +136,7 @@ export const SessionModal: FC<Props> = ({session, closeModal}): React.ReactNode 
                             onClick={buttonAction}
                         >Submit
                         </button>
-                </form>
+                </div>
                 <MdCancel
                     style={{
                         color: "red",

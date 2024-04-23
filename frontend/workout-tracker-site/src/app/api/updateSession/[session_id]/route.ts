@@ -9,7 +9,7 @@ export const PUT = async (
     {params}: {params: {session_id: number}}
     ) =>{
         const body = await request.json()
-
+        console.log(request.body)
         const createSessionsURL = SITE_DOMAIN_NAME + POST_CREATE_SESSION + "/" + params.session_id;   
         const accessToken = await getAccessTokenServer();
         try{

@@ -9,7 +9,6 @@ export const GET = async (
     request: Request,
     {params}: {params: {workout_id?: number}}
     )=>{
-        console.log({params})
         let fetchplansURL = "";
         if(!params?.workout_id){
             fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 

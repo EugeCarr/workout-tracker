@@ -34,7 +34,8 @@ export interface session {
     name: string;
     plannedDate: string;
     completedDate?: string;
-    description: string
+    description: string;
+    workoutPlan?: workoutPlan
 }
 
 export interface userAccount {
