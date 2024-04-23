@@ -89,6 +89,8 @@ class ExerciseTypeUpdateDelete(ClientReadOnlyPermissionMixin, generics.RetrieveU
 class ExerciseCreateList(CreateListMixin, ClientReadOnlyPermissionMixin, generics.ListCreateAPIView):
     serializer_class = serializers.ExerciseSerializer
     throttle_classes = [UserRateThrottle]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['session_id']
     
     def get_queryset(self):
         user = self.request.user

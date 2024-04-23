@@ -1,31 +1,33 @@
 "use client";
 import { session, workoutPlan } from "../interfaces/interfaces";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { BsFillTrash2Fill, BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
 
 interface Props {
     workoutPlanId: number;
     setIsModalOpen: (isOpen: boolean)=> void;
-    sessions: session[];
     setSelectedSession: (session: session) => void;
+    sessionsUpdatedCounter: number;
 }
 
-export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, sessions, setSelectedSession}): React.ReactNode => {
+export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter}): React.ReactNode => {
     console.log({workoutPlanId})
-    console.log({sessions})
-    // let defaultSessions: session[] = [
-    //     {
-    //         id: 2,
-    //         workoutPlan_id: 35,
-    //         name: "Test session for UI",
-    //         description: "This is a dummy session. It did not come from the db",
-    //         plannedDate: "2024-04-22",                
-    //     }
-    // ];
-    // console.log({sessions})
-    // !sessions.map((s)=> s.id) ? defaultSessions = sessions: defaultSessions = defaultSessions;
-    // console.log({defaultSessions})
-    const [listSessions, SetListSessions] = useState<session[]>(sessions);
+    const [listSessions, SetListSessions] = useState<session[]>([] as session[]);
+
+    useEffect(
+        () => {
+            const getSessions = async(workoutPlan_id: number): Promise<void> => {
+                const sessionsRes = await fetch(
+                    `http://localhost:3000/api/getWorkoutPlans/getWorkoutSessions/${workoutPlan_id}`
+                )
+                const qSessions = await sessionsRes.json();
+                SetListSessions(qSessions)
+                return 
+            };            
+            getSessions(workoutPlanId);
+            return
+        }, [sessionsUpdatedCounter]
+    );
 
     const deleteSession = async (session_id: number): Promise<void> => {
         setTimeout(() => {
@@ -77,12 +79,6 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, sessio
                     }
                 >Add Session</button>
             </div>
-            {/* <div
-                className="form card"
-            >
-                
-
-            </div> */}
             <table
                     className="session-table"
                 >

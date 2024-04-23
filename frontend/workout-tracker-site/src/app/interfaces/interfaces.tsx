@@ -38,6 +38,16 @@ export interface session {
     workoutPlan?: workoutPlan
 }
 
+export interface exercise {
+    id: number;
+    session_id: number;
+    type_id: number;
+    repetitions: number;
+    sets: number; 
+    session?: session;
+    type?: exerciseType;
+}
+
 export interface userAccount {
     id: number;
     username: string;
