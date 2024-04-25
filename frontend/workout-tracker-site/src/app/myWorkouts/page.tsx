@@ -9,23 +9,15 @@ import { Suspense } from "react";
 
 
 export const WorkoutPlans = async (): Promise<any> => {
-    // const clientsRes = await fetch(
-    //     `http://localhost:3000/api/getUsers/1`
-    // );   
-    // console.log(clientsRes)
-    // const clients = await clientsRes.json();
-
-    // const trainersRes = await fetch(
-    //     `http://localhost:3000/api/getUsers/0`
-    // );   
-    // const trainers = await trainersRes.json();
-
-    // const clients: userAccount[] = await getUsers(true); 
-    // const trainers: userAccount[] = await getUsers(false);
     
     return (
-            // <WorkoutPlanGrid trainerUsers={trainers} clientUsers={clients} />
-            <WorkoutPlanGrid />
+            <div
+                style={{
+                    height: "100%"
+                }}
+            >
+                <WorkoutPlanGrid />
+            </div>
         
     )
 }

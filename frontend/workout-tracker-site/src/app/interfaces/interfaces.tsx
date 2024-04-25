@@ -42,7 +42,7 @@ export interface exercise {
     id: number;
     session_id: number;
     type_id: number;
-    repetitions: number;
+    reps: number;
     sets: number; 
     session?: session;
     type?: exerciseType;

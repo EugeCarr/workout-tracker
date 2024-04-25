@@ -67,32 +67,22 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
             return 
         }, [submitCounter]
     );
-
-    
-
-    const planComps = plans.map((wPlan)=> {
-        return (
-            <>
-                
-                <Link
-                    href={`myWorkouts/${wPlan.id}`}
-                    style={{textDecoration: 'none'}}
-                    key={wPlan.id}
-                >
-                    
-                    <WorkoutDisplayCard workoutPlan={wPlan} key={wPlan.id}/>
-                </Link>
-            </>
-            
-            
-        )
-    }
-    );
     return (
         <>
             <WorkoutEditCreate trainerUsers={PTs} clientUsers={trainees} submitCounterFunction={incrementSubmitCounter}/>
             <Suspense>
-                {planComps}
+                {
+                    plans.map((wPlan)=>(
+                        <Link
+                                href={`myWorkouts/${wPlan.id}`}
+                                style={{textDecoration: 'none'}}
+                                key={wPlan.id}
+                            >
+                                
+                                <WorkoutDisplayCard workoutPlan={wPlan|| {} as workoutPlan}/>
+                        </Link>                       
+                    ))
+                }
             </Suspense>
             
         </>

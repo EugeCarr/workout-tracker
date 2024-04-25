@@ -1,6 +1,6 @@
 "use client";
 import { format } from "path";
-import { session, exercise } from "../interfaces/interfaces";
+import { session, exercise, muscleGroup } from "../interfaces/interfaces";
 import React, { FC, useState, useEffect} from "react";
 import { BsFillTrash2Fill, BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
 
@@ -8,7 +8,7 @@ interface Props {
     session: session;
     setIsExerciseModalOpen: (isOpen: boolean)=> void;
     setSelectedExercise: (exercise: exercise) => void;
-    updateCounter: number
+    updateCounter: number;
 }
 
 export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOpen, setSelectedExercise, updateCounter}): React.ReactNode => {
@@ -25,7 +25,7 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
         () => {
             const getSessionExercises = async (session_id: number) : Promise<void> => {
                 const exercisesRes = await fetch(
-                    `/api/getSessionExercises${session_id}`
+                    `/api/getSessionExercises/${session_id}`
                 )
                 const exercises = await exercisesRes.json();
                 SetListexercises(exercises)
@@ -33,15 +33,18 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
             };            
             getSessionExercises(session.id);
             return
-            }, [updateCounter]
+            }, [updateCounter, session]
     );
     const editSession = async (exercise_id: number): Promise<void> => {
         setTimeout(() => {
             console.log(`edit Session: ${exercise_id}`)
-        }, 1000);
+        }, 1000);        
         const selectExercise = listexercises.find((ex)=> ex.id === exercise_id) || {} as exercise
         console.log(selectExercise)
-        setSelectedExercise(selectExercise);
+        setSelectedExercise({
+            ...selectExercise,
+            type_id: selectExercise.type?.id || 0
+        });
         setIsExerciseModalOpen(true);
         
         return 
@@ -50,9 +53,16 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
     const formatMuscleGroups = (exercise: exercise): string => {
         const muscleGroups = exercise.type?.muscleGroups;
         const string = muscleGroups?.reduce(
-            (finalString, currentMg)=> {
-                let newString = ""
-                !!currentMg.name ? newString = finalString : newString = finalString + ", " + currentMg.name
+            (finalString, currentMg: muscleGroup)=> {
+                const test = currentMg.name
+                console.log({test})
+                let newString = "";
+                if(!finalString){
+                    newString = currentMg.name|| "";
+                }else{
+                    newString = finalString + ", " + currentMg.name
+                }
+                console.log({newString})
                 return newString
             },""
         );
@@ -61,7 +71,17 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
     }
 
     return (
-        <>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "80vw",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "2rem",
+                marginTop: "2rem"
+            }}
+        >
             <div
                 style={{
                     display: "flex",
@@ -96,11 +116,33 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
                 >
                     <thead>
                         <tr>
-                            <th>Movement</th>
-                            <th>Muscle Groups</th>
-                            <th>Sets</th>
-                            <th>Repetitions</th>
-                            <th>Actions</th>
+                            <th style={{
+                                width: "25vw"
+                            }}
+
+                            >Movement</th>
+                            <th style={{
+                                width: "35vw"
+                            }}
+
+                            >Muscle Groups</th>
+                            <th style={{
+                                width: "10vw",
+                                alignItems:"self-end"
+                            }}
+
+                            >Sets</th>
+                            <th style={{
+                                width: "10vw",
+                                alignItems:"self-end"
+                            }}
+
+                            >Repetitions</th>
+                            <th style={{
+                                width: "10vw"
+                            }}
+
+                            >Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,7 +150,7 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
                             return (
                                 <tr key={exercise.id}>
                                     <td style={{
-                                        width: "20vw"
+                                        width: "25vw"
                                     }}
                                     
                                     >{exercise.type?.name}</td>
@@ -125,7 +167,7 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
                                     style={{
                                         width: "10vw",
                                         alignItems:"self-end"
-                                    }}>{exercise.repetitions}</td>
+                                    }}>{exercise.reps}</td>
                                     <td
                                         style={{
                                             width: "10vw"
@@ -148,8 +190,8 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
                             )
                         })}
                     </tbody>
-                </table>
+            </table>
             
-        </>
+        </div>
     )
 }

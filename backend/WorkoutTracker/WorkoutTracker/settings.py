@@ -135,7 +135,7 @@ REST_FRAMEWORK = {
       'rest_framework.throttling.UserRateThrottle', 
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'user': '20/minute'
+        'user': '50/minute'
     },
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

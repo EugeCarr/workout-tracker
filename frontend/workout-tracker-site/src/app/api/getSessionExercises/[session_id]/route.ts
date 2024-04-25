@@ -6,9 +6,9 @@ import { getAccessTokenServer } from "../../getAccessTokenServer";
 
 export const GET = async (
     request: Request,
-    {params}: {params: {workout_id?: number}}
+    {params}: {params: {session_id?: number}}
     )=>{
-        let fetchplansURL = SITE_DOMAIN_NAME + GET_EXERCISES_ENDPOINT + "?session_id=" + params.workout_id
+        let fetchplansURL = SITE_DOMAIN_NAME + GET_EXERCISES_ENDPOINT + "?session_id=" + params.session_id
 
         const accessToken = await getAccessTokenServer();
 

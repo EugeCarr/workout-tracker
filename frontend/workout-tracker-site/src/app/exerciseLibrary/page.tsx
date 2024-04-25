@@ -7,7 +7,14 @@ import { ExerciseTypeGrid } from "../components/ExerciseTypeGrid";
 const WorkoutPlans = (): React.ReactNode => {
     
     return (
-            <ExerciseTypeGrid/>
+        <div
+                style={{
+                    height: "100%"
+                }}
+            >
+                <ExerciseTypeGrid/>
+            </div>
+            
         
     )
 }

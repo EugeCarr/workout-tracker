@@ -49,9 +49,9 @@ export const ExerciseTypeGrid: FC= (): React.ReactNode  => {
         return 
     }
 
-    const excerciseComps = exerciseTypes.map((exercise)=> {
+    const excerciseComps = exerciseTypes.map((exerciseType)=> {
         return (
-            <ExerciseTypeDisplayCard exerciseType={exercise} key={exercise.id}/>         
+            <ExerciseTypeDisplayCard exerciseType={exerciseType|| {} as exerciseType} key={exerciseType.id}/>         
             
         )
     }

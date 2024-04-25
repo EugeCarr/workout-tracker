@@ -35,12 +35,6 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
         )
     };
 
-    const exerciseTypeOptions = exerciseTypes.map((ex: exerciseType) => {
-        return (
-            <option key={ex.id} value={ex.id}>{ex.name}</option> 
-        )
-    });
-
     const buttonAction = async (): Promise<void> => {
         console.log("testing button for modal")
         let url = "";
@@ -55,9 +49,8 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
         console.log({url, actionMethod})
         console.log(editedExercise)
         const requestExercise = {
-            name: editedExercise.type_id,
             sets: editedExercise.sets,
-            repetitions: editedExercise.repetitions,
+            reps: editedExercise.reps,
             session_id: session_id,
             type_id: editedExercise.type_id,
         }
@@ -78,6 +71,7 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
         return 
     };
 
+    console.log({editedExercise})
     return (
         <div
             className="modal-container"
@@ -100,20 +94,22 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
                     >
                         Create/edit Session
                     </p>
-                    <label htmlFor="movement" className="standard-form-label">Movement: </label>                
+                    <label htmlFor="type_id" className="standard-form-label">Movement: </label>                
                     <select
-                        name="movement"
-                        id="movement"
+                        name="type_id"
+                        id="type_id"
                         required
                         className="form-input"
                         value={editedExercise.type_id}
                             onChange = {(e) => {handleSelection(e)}}
                     >
                         {
-                            [
-                                <option value={undefined}>--Please pick a Movement--</option>,
-                                exerciseTypeOptions
-                            ]
+                            [undefined, ...exerciseTypes].map((ex: exerciseType| undefined, index: number)=> {
+                                const label = !ex?.id ?  "--Please pick a Movement--" : ex.name
+                                return(
+                                    <option key={ex?.id|| index} value={ex?.id}>{label}</option>
+                                )
+                            })
                         
                         }
                     </select>
@@ -124,25 +120,26 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
                         type="number"
                         required
                         className="form-input"
+                        min="0"
                         value={editedExercise.sets}
                         onChange = {(e) => {handleChange(e)}}
                         placeholder="Sets"
                     /> 
-                    <label htmlFor="repetitions" className="standard-form-label">Reps: </label>
+                    <label htmlFor="reps" className="standard-form-label">Reps: </label>
                     <input
-                        name="repetitions"
-                        id="repetitions"
+                        name="reps"
+                        id="reps"
                         type="number"
                         required
                         className="form-input"
-                        value={editedExercise.repetitions}
+                        value={editedExercise.reps}
                         min="0"
                         onChange = {(e) => {handleChange(e)}}
                     />
                     <button
                         name="form-button"
                         className="form-button"
-                        disabled={!editedExercise.type_id || !editedExercise.sets || !editedExercise.repetitions}
+                        disabled={!editedExercise.type_id || !editedExercise.sets || !editedExercise.reps}
                         onClick={buttonAction}
                     >Submit
                     </button>

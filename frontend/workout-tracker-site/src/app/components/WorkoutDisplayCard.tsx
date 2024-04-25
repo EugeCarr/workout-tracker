@@ -1,4 +1,4 @@
-"use server";
+"use client";
 import { workoutPlan } from "../interfaces/interfaces";
 import React, { FC } from "react";
 

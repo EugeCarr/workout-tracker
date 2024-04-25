@@ -11,7 +11,7 @@ export const getAccessTokenServer = async () : Promise<RequestCookie| undefined>
 
     if (!accessToken){
         console.log("refreshing access token")
-        console.log({refreshToken})
+        // console.log({refreshToken})
         const newAccessToken = await getRefreshedAccessToken(refreshToken?.value);
         cookies().set({name: 'authToken', value: newAccessToken, httpOnly: true, expires: FIVE_MINS_TIME })
         accessToken = cookies().get("authToken")

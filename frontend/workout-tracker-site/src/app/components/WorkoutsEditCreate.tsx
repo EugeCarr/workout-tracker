@@ -52,19 +52,6 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
         )
     };
 
-    
-
-    const clientOptions = clientUsers.map((user)=> {
-        return(
-            <option key={user.id} value={user.id}>{`${user.first_name} ${user.last_name}`}</option>
-        )
-    });
-
-    const trainerOptons = trainerUsers.map((user)=> {
-        return(            
-            <option key={user.id} value={user.id}>{`${user.first_name} ${user.last_name}`}</option>
-        )
-    });
     return (
         <div
                     className="form-card"
@@ -74,7 +61,7 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                         alignItems: "center"
                     }}           
                 >
-                    <form 
+                    <div 
                         id="create-workout-plan"
                         style={{
                             display: "flex",
@@ -108,10 +95,12 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                             onChange = {(e) => {handleSelection(e)}}
                         >
                             {
-                                [
-                                    <option value={undefined}>--Please pick a Client--</option>,
-                                    clientOptions
-                                ]
+                                [undefined, ...clientUsers].map((user, index)=> {
+                                    const label = !user?.id ?  "--Please pick a Client--" : `${user?.first_name} ${user?.last_name}`
+                                    return(
+                                        <option key={user?.id|| index} value={user?.id}>{label}</option>
+                                    )
+                                })
                             
                             }
                         </select>
@@ -125,10 +114,12 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                             onChange = {(e) => {handleSelection(e)}}
                         >
                             {
-                                [
-                                    <option value={undefined}>--Please pick a Trainer--</option>,
-                                    trainerOptons
-                                ]
+                                [undefined, ...trainerUsers].map((user, index)=> {
+                                    const label = !user?.id ?  "--Please pick a Trainer--" : `${user?.first_name} ${user?.last_name}`
+                                    return(
+                                        <option key={user?.id|| index} value={user?.id}>{label}</option>
+                                    )
+                                })
                             
                             }
                         </select>
@@ -140,7 +131,7 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
                             onClick={buttonAction}
                         >Add workout Plan
                         </button>
-                    </form>
+                    </div>
                     
                 </div>
     )
