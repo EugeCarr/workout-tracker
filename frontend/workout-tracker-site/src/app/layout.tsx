@@ -15,7 +15,11 @@ const RootLayout = ({
     <html 
       lang="en"
     >
-      <body>
+      <body
+        style={{
+          height: "100%"
+        }}
+      >
         <SiteBanner first_name={firstName}/>
           <div
             className="page-background"
