@@ -1,11 +1,29 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from accounts.models import UserAccount
 from . import models
 from accounts.serializers import UserManagementSerializer  
 from django.shortcuts import get_object_or_404   
 from collections import OrderedDict
         
+class UserGroupManagementSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(queryset=UserAccount.objects.all())
+    class Meta():
+        model= UserAccount
+        fields=["id"]
+    
+    def update(self, instance, validated_data):
+        clientGroup = Group.objects.get(name="Client")
+        trainerGroup = Group.objects.get(name="Trainer")
+        user = UserAccount.objects.get(pk=instance.id)
+        print(user)
+        print(clientGroup, trainerGroup)
+        user.groups.remove(clientGroup)
+        trainerGroup.user_set.add(user)
+        user.save()
+        
+        return user
+
 class SessionHelperSerializer(serializers.ModelSerializer):
     workoutPlan_id =serializers.PrimaryKeyRelatedField(queryset=models.WorkoutPlan.objects.all())
     

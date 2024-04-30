@@ -11,5 +11,6 @@ urlpatterns = [
     path(route='workout-plans/sessions/exercises', view=views.ExerciseCreateList.as_view(), name="exercises-list"),
     path(route='workout-plans/sessions/exercises/<int:pk>', view=views.ExerciseUpdateRetrieve.as_view(), name="exercises-edit"),
     path(route='users/', view=views.UserAccountList.as_view(), name="users-view"),
-    path(route='muscle-groups', view=views.MuscleGroupListCreate.as_view(), name="muscle-groups")
+    path(route='muscle-groups', view=views.MuscleGroupListCreate.as_view(), name="muscle-groups"),
+    path(route='users/<int:pk>/add-to-trainers', view=views.ChangeUserToTrainer.as_view(), name="add-user-to-trainers"),
 ]
