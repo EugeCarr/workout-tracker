@@ -2,23 +2,16 @@
 import  "../styles.css";
 import React, { useState} from "react";
 import { useRouter } from "next/navigation";
-import { signupDetails } from "../interfaces/interfaces";
+import { signupDetails, loginDetails} from "../interfaces/interfaces";
 import { createUser } from "../api/signup";
 import { useAuthenticationContext } from "../contexts/AuthenticationContext";
 import { authDetails } from "../interfaces/interfaces";
 import Link from "next/link";
+import { loginUser } from "../api/login";
 
 
-const SignupForm = (): React.ReactNode => {
-    const {authDetails: authDetails, setAuthDetails} = useAuthenticationContext();
-    
-    const [signup, setSignup] = useState<signupDetails>({
-        email: "",
-        password: "",
-        re_password: "",
-        first_name: "",
-        last_name: "",
-    });
+const SignupForm = (): React.ReactNode => {    
+    const [signup, setSignup] = useState<signupDetails>({} as signupDetails);
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const [badSignup, setBadSignup] = useState<string>("");
@@ -31,30 +24,31 @@ const SignupForm = (): React.ReactNode => {
             }
         )
     };
-    const homePageRouter = useRouter()
+    const homePageRouter = useRouter();
 
-    const buttonAction =  async () => {
+    const buttonAction =  async (): Promise<void>=> {
+        console.log(signup);
         const {password, re_password} = signup;
         if(password !==re_password){
             setErrorMessages([
                 ...errorMessages,
                 "Password and confirm Password do not match."
-            ])
+            ]);
             return
         }else{
-            const loginResponse = await createUser(signup);
-            setAuthDetails(
-                {
-                    email: loginResponse?.email,
-                    authToken: loginResponse?.authToken,
-                    refreshToken: loginResponse?.refreshToken,
-                }
-            );
-            if(!loginResponse?.email){
+            try{
+                const signUpDetails = await createUser(signup);
+                const login = await loginUser({
+                    email: signUpDetails.email || "",
+                    password: signup.password
+                });
+                homePageRouter.push('../')
+                return
+            }catch(error){
+                console.log(error)
                 setBadSignup("Login Failed. Please enter a correct username and password.")
                 return
-            }
-            homePageRouter.push('../')
+            }            
         }        
         
     };

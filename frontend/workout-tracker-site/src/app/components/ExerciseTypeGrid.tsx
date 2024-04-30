@@ -14,7 +14,6 @@ export const ExerciseTypeGrid: FC= (): React.ReactNode  => {
     useEffect(
         () => {
             const getExerciseTypes = async (): Promise<void> => {
-                console.log("Getting current exercise types")
                 const queriedTypes = await fetch(
                     `api/getExerciseTypes`
                 );                

@@ -5,7 +5,7 @@ import { signupDetails, authDetails } from "../interfaces/interfaces";
 import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
 
-export const createUser = async (signupDetails: signupDetails): Promise<authDetails| null> => {
+export const createUser = async (signupDetails: signupDetails): Promise<authDetails> => {
 
     const fetchURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
     const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
@@ -53,6 +53,6 @@ export const createUser = async (signupDetails: signupDetails): Promise<authDeta
         };             
     }catch(error) {
         console.log(error)
-        return null
+        return {} as signupDetails
     }
 }

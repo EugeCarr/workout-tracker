@@ -17,6 +17,8 @@ export const REFRESH_TOKEN_ENDPOINT = "/auth/jwt/refresh/";
 
 export const GET_USER_ENDPOINT = "/auth/users/";
 
+export const GET_MY_USER_ENDPOINT = "/auth/users/me";
+
 export const GET_MULTIPLE_USERS_ENDPOINT = "/api/users/";
 
 export const GET_MUSCLE_GROUPS_ENDPOINT = "/api/muscle-groups"
