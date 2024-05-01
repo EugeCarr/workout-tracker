@@ -1,12 +1,14 @@
 "use server";
 import { cookies } from 'next/headers'
-import { getTokenExpiryTime } from '../utils';
-import { signupDetails, authDetails } from "../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../config.js";
-import { myFetch, ResponseError } from "./fetchWrapper";
-import { getAccessTokenServer } from './getAccessTokenServer';
+import { getTokenExpiryTime } from '../../utils';
+import { signupDetails } from "../../interfaces/interfaces";
+import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../../config.js";
+import { myFetch } from ".././fetchWrapper";
+import { getAccessTokenServer } from '.././getAccessTokenServer';
 
-export const createUserTrainer = async (signupDetails: signupDetails): Promise<authDetails> => {
+export const POST = async (request: Request) => {
+
+    const body: signupDetails = await request.json();
 
     const createUserURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
     const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
@@ -17,7 +19,7 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
             createUserURL,
             {
                 method: "POST",
-                body: JSON.stringify(signupDetails),
+                body: JSON.stringify(body),
                 headers: {
                 "Content-Type": "application/json",
                 },
@@ -30,8 +32,8 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
                 method: "POST",
                 body: JSON.stringify(
                     {
-                        email: signupDetails.email,
-                        password: signupDetails.password
+                        email: body.email,
+                        password: body.password
                     }
                 ),
                 headers: {
@@ -40,15 +42,14 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
             }
             
         );
+        console.log({tokenResponse})
         cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME });
         cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true});
-        cookies().set({name: 'email', value: signupDetails.email, httpOnly: true});
-        cookies().set({name: 'first_name', value: signupDetails.first_name, httpOnly: true});
-        cookies().set({name: 'last_name', value: signupDetails.last_name, httpOnly: true});
+        cookies().set({name: 'email', value: body.email, httpOnly: true});
+        cookies().set({name: 'first_name', value: body.first_name, httpOnly: true});
+        cookies().set({name: 'last_name', value: body.last_name, httpOnly: true});
         const addUserToTrainerURL = SITE_DOMAIN_NAME + ADD_USER_TO_TRAINERS + signupRes?.id;
         const accessToken = await getAccessTokenServer();
-        console.log("switching to trainer")
-        console.log({accessToken})
         const makeTrainerResponse = await myFetch(
             addUserToTrainerURL,
             {
@@ -65,15 +66,21 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
             }
         );
         
-        return {
-            email: signupDetails.email,
-            authToken: tokenResponse["access"],
-            refreshToken: tokenResponse["refresh"],
-            first_name: signupDetails.first_name,
-            last_name: signupDetails.last_name,
-        };             
-    }catch(error) {
+        return new Response(
+            JSON.stringify({
+                email: body.email,
+                authToken: tokenResponse["access"],
+                refreshToken: tokenResponse["refresh"],
+                first_name: body.first_name,
+                last_name: body.last_name,
+            }),
+            {status:201}   
+        )       
+    } catch(error){
         console.log(error)
-        return {} as signupDetails
+        return new Response(
+            JSON.stringify(error),
+            {status: 400}
+        )  
     }
 }

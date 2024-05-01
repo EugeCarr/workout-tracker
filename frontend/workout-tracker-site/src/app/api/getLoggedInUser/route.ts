@@ -10,6 +10,8 @@ export const GET = async (
     {
     let fetchUserURL = SITE_DOMAIN_NAME + GET_MY_USER_ENDPOINT;
     const accessToken = await getAccessTokenServer();
+    console.log("getting logged in user")
+    console.log({accessToken})
     try{
         const userRes = await myFetch(
             fetchUserURL,

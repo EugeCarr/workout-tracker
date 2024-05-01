@@ -1,7 +1,7 @@
 "use server "
 import { WorkoutPlanGrid } from "../components/WorkoutPlanGrid";
 
-export const WorkoutPlans = async (): Promise<any> => {
+const WorkoutPlans = async (): Promise<any> => {
     
     return (
             <div

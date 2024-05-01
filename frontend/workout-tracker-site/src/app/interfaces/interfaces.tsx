@@ -25,7 +25,8 @@ export interface mainPageCardDetails {
     title: string,
     photoSrc: string,
     description: string,
-    pageRoute: string
+    pageRoute: string,
+    altText: string
 }
 
 export interface session {

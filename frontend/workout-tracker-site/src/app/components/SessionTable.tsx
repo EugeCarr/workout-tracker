@@ -28,7 +28,7 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
             };            
             getSessions(workoutPlanId);
             return
-        }, [sessionsUpdatedCounter]
+        }, [sessionsUpdatedCounter, workoutPlanId]
     );
 
     const deleteSession = (session_id: number): void => {

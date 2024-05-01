@@ -12,7 +12,7 @@ interface Props  {
     params: any
 }
 
-export const ViewWorkoutPlan: FC<Props> = ({params}) => {
+const ViewWorkoutPlan: FC<Props> = ({params}) => {
     const {workout_id} = params;
     const [plan, setPlan] = useState<workoutPlan>({} as workoutPlan);
     const [exerciseTypes, setExerciseTypes] = useState<exerciseType[]>([] as exerciseType[]);
@@ -48,7 +48,7 @@ export const ViewWorkoutPlan: FC<Props> = ({params}) => {
             getExerciseTypes();            
             getWPlan();
             return 
-        }, []
+        }, [workout_id]
     );
 
     console.log({sessionsUpdatedCounter})

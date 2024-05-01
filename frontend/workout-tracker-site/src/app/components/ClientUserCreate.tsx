@@ -26,7 +26,15 @@ export const ClientUserCreate: FC<Props> = ({ counterFunction}): React.ReactNode
             return
         }else{
             try{
-                const signUpDetails = await createUserClient(newClientUser);
+                const newUserRes: Response = await fetch(
+                    "/api/createUserClient",
+                    {
+                        method: "POST",
+                        body: JSON.stringify(newClientUser)
+                    }
+                );
+                const writtenExerciseType = await newUserRes.json();
+                setNewClientUser({}as signupDetails)
                 counterFunction();
                 return
             }catch(error){
@@ -37,7 +45,7 @@ export const ClientUserCreate: FC<Props> = ({ counterFunction}): React.ReactNode
         
         }
     };
-
+    console.log({newClientUser})
 
     return (
         <CreateUserForm

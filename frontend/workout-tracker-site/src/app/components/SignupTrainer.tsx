@@ -25,9 +25,16 @@ export const SignupFormTrainer: FC = (): React.ReactNode => {
             return
         }else{
             try{
-                const signUpDetails = await createUserTrainer(signup);
+                const newTrainerUserRes: Response = await fetch(
+                    "/api/createUserTrainer",
+                    {
+                        method: "POST",
+                        body: JSON.stringify(signup)
+                    }
+                );
+                const newTrainer = await newTrainerUserRes.json();
                 const login = await loginUser({
-                    email: signUpDetails.email || "",
+                    email: newTrainer.email,
                     password: signup.password
                 });
                 homePageRouter.push('../')

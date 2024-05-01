@@ -9,7 +9,7 @@ import { getStylesConstants } from "../utils";
 import  "../styles.css";
 
 export const MainpageCard: FC<mainPageCardDetails> = ({
-    title, photoSrc, description, pageRoute
+    title, photoSrc, description, pageRoute, altText
 }): React.ReactNode => {
 
     return (
@@ -47,6 +47,7 @@ export const MainpageCard: FC<mainPageCardDetails> = ({
                                 width: "18rem"
                             }
                         }
+                        alt={altText}
                     />
                     <p                
                     >

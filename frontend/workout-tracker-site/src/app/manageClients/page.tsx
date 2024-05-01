@@ -1,10 +1,9 @@
 "use client"
-import { WorkoutPlanGrid } from "../components/WorkoutPlanGrid";
 import { ClientUserCreate } from "../components/ClientUserCreate";
 import { ClientUserTable } from "../components/ClientUsersTable";
-import { useState } from "react";
+import { useState, FC} from "react";
 
-export const ClientUserPage = async (): Promise<any> => {
+const ClientUserPage: FC = (): React.ReactNode => {
     const [submitCounter, setSubmitCounter] = useState<number>(0);
     return (
             <div

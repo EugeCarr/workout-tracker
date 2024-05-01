@@ -60,7 +60,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     type="text"
                     required
                     className="form-input"
-                    value={signup.first_name}
+                    value={signup.first_name|| ""}
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Firstname"
                 />  
@@ -71,7 +71,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     type="text"
                     required
                     className="form-input"
-                    value={signup.last_name}
+                    value={signup.last_name||""}
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Surname"
                 />   
@@ -82,7 +82,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     type="text"
                     required
                     className="form-input"
-                    value={signup.email}
+                    value={signup.email||""}
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Email"
                 />   
@@ -93,10 +93,10 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     type="text"
                     required
                     className="form-input"
-                    value={signup.password}
+                    value={signup.password|| ""}
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Password"
-                />   
+                /> 
                 <label htmlFor="re_password" className="standard-form-label">Re-type password: </label>
                 <input
                     name="re_password"
@@ -104,7 +104,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     type="text"
                     required
                     className="form-input"
-                    value={signup.re_password}
+                    value={signup.re_password||""}
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Re-type password"
                 />                  
