@@ -16,8 +16,6 @@ class UserGroupManagementSerializer(serializers.ModelSerializer):
         clientGroup = Group.objects.get(name="Client")
         trainerGroup = Group.objects.get(name="Trainer")
         user = UserAccount.objects.get(pk=instance.id)
-        print(user)
-        print(clientGroup, trainerGroup)
         user.groups.remove(clientGroup)
         trainerGroup.user_set.add(user)
         user.save()
@@ -76,7 +74,6 @@ class ExerciseTypeSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "description", "muscleGroups"]
         
     def create(self, validated_data):
-        print(self.initial_data)
         mGroups = self.initial_data["muscleGroups"]
         
         muscleGroupInstances = []
