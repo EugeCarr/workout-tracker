@@ -41,19 +41,21 @@ export const ClientUserTable : FC<Props> = ({counter}): React.ReactNode => {
                     <thead>
                         <tr>
                             <th style={{
-                                width: "20vw"
+                                width: "20vw",
+                                textAlign: "left"
                             }}
 
                             >Firstname</th>
 
                             <th style={{
-                                width: "20vw"
+                                width: "20vw",
+                                textAlign: "left"
                             }}
 
                             >Surname</th>
                             <th style={{
                                 width: "40vw",
-                                alignItems:"self-end"
+                                textAlign: "left"
                             }}
 
                             >Email</th>
@@ -64,18 +66,20 @@ export const ClientUserTable : FC<Props> = ({counter}): React.ReactNode => {
                             return (
                                 <tr key={clientUser.id}>
                                     <td style={{
-                                        width: "20vw"
+                                        width: "20vw",
+                                        textAlign: "left"
                                     }}
                                     
                                     >{clientUser.first_name}</td>
                                     <td style={{
-                                        width: "20vw"
+                                        width: "20vw",
+                                        textAlign: "left"
                                     }}
                                     >{clientUser.last_name}</td>
                                     <td
                                     style={{
                                         width: "40vw",
-                                        alignItems:"self-end"
+                                        textAlign: "left"
                                     }}>{clientUser.email}</td>
                                 </tr>
                             )
