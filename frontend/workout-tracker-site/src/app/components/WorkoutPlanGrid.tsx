@@ -11,12 +11,10 @@ import { cookies } from "next/headers";
 import { SITE_DOMAIN_NAME } from "../config";
 
 interface Props {
-    // wPlans: workoutPlan[],
     clientUsers: userAccount[],
     trainerUsers: userAccount[],
 };
 
-// export const WorkoutPlanGrid: FC<Props >= ({clientUsers, trainerUsers}): React.ReactNode  => {
 export const WorkoutPlanGrid = (): React.ReactNode => {
     const [plans, setPlans ] = useState<workoutPlan[]>([{}] as workoutPlan[]);
     const [trainees, setTrainees] = useState<userAccount[]>([{}] as userAccount[]);
@@ -33,7 +31,6 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
         () => {
 
             const getAllUsers = async(): Promise<void> => {
-                console.log(`${SITE_DOMAIN_NAME}/api/getUsers/1`)
                 const clientsRes = await fetch(
                     `/api/getUsers/1`
                 );   
@@ -60,7 +57,6 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
                     `/api/getWorkoutPlans`
                 );                
                 const allPlans = await queriedPlan.json()
-                // console.log(allPlans)
                 setPlans(allPlans)
                 return
             };
