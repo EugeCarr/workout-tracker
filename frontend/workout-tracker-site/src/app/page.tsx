@@ -25,7 +25,6 @@ const Home = () => {
     }, []
   );
   const isUserTrainer = myUser?.groups?.includes("Trainer");
-  console.log({myUser, isUserTrainer})
 
   return (
     <div

@@ -1,10 +1,11 @@
-"use server "
+"use client"
 import { WorkoutPlanGrid } from "../components/WorkoutPlanGrid";
 import { ClientUserCreate } from "../components/ClientUserCreate";
 import { ClientUserTable } from "../components/ClientUsersTable";
+import { useState } from "react";
 
 export const ClientUserPage = async (): Promise<any> => {
-    
+    const [submitCounter, setSubmitCounter] = useState<number>(0);
     return (
             <div
                 style={{
@@ -14,8 +15,8 @@ export const ClientUserPage = async (): Promise<any> => {
                     alignItems: "center"
                 }}
             >
-                <ClientUserCreate />
-                <ClientUserTable/>
+                <ClientUserCreate counterFunction={()=> setSubmitCounter(submitCounter + 1)}/>
+                <ClientUserTable counter={submitCounter}/>
             </div>
         
     )

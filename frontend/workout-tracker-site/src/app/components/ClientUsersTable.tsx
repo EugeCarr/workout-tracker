@@ -2,8 +2,11 @@
 import { userAccount } from "../interfaces/interfaces";
 import React, { FC, useEffect, useState } from "react";
 
+interface Props {
+    counter: number;
+}
 
-export const ClientUserTable : FC = (): React.ReactNode => {
+export const ClientUserTable : FC<Props> = ({counter}): React.ReactNode => {
     const [clients, setClients] = useState<userAccount[]>([] as userAccount[]);
 
     useEffect(
@@ -13,12 +16,11 @@ export const ClientUserTable : FC = (): React.ReactNode => {
                     `api/getUsers/1`
                 );                
                 const clients = await queriedClients.json()
-                setClients(clients)
-                
+                setClients(clients)                
                 return
             }
             getClients()
-        }, []
+        }, [counter]
     );
 
     return (

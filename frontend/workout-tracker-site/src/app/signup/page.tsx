@@ -1,9 +1,9 @@
 "use client"
-import SignupForm from "../components/Signup"
+import { SignupFormTrainer } from "../components/SignupTrainer"
 
 const Signup = () => {
     return (
-        <SignupForm/>
+        <SignupFormTrainer/>
     )
 }
 
