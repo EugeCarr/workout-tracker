@@ -1,11 +1,11 @@
 "use server"
-import { GET_EXERCISE_TYPES_ENDPOINT, SITE_DOMAIN_NAME } from "../../config";
+import { GET_EXERCISE_TYPES_ENDPOINT, BACKEND_DOMAIN_NAME } from "../../config";
 import { myFetch } from "../fetchWrapper";
 import { getAccessTokenServer } from "../getAccessTokenServer";
 
 
 export const GET = async (request: Request) => {
-        let fetchExerciseTypesURL = SITE_DOMAIN_NAME + GET_EXERCISE_TYPES_ENDPOINT 
+        let fetchExerciseTypesURL = BACKEND_DOMAIN_NAME + GET_EXERCISE_TYPES_ENDPOINT 
         console.log(fetchExerciseTypesURL)
         const accessToken = await getAccessTokenServer();
         

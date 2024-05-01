@@ -45,8 +45,6 @@ export const ClientUserCreate: FC<Props> = ({ counterFunction}): React.ReactNode
         
         }
     };
-    console.log({newClientUser})
-
     return (
         <CreateUserForm
             buttonAction={submitAction}

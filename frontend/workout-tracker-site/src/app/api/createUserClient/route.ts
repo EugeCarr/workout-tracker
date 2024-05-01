@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from 'next/headers'
 import { signupDetails } from "../../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../../config.js";
+import {BACKEND_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../../config.js";
 import { myFetch } from ".././fetchWrapper";
 
 
@@ -9,8 +9,8 @@ export const POST = async (request: Request) => {
 
     const body: signupDetails = await request.json();
 
-    const fetchURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
-    const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
+    const fetchURL = BACKEND_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
     try{
         const response = await myFetch(
             fetchURL,

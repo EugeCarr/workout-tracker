@@ -2,14 +2,14 @@
 import { cookies } from 'next/headers'
 import { getTokenExpiryTime } from '../utils';
 import { signupDetails, authDetails } from "../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../config.js";
+import {BACKEND_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
 import { getAccessTokenServer } from './getAccessTokenServer';
 
 export const createUserTrainer = async (signupDetails: signupDetails): Promise<authDetails> => {
 
-    const createUserURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
-    const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
+    const createUserURL = BACKEND_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
     
     const FIVE_MINS_TIME = getTokenExpiryTime()
     try{
@@ -45,10 +45,8 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
         cookies().set({name: 'email', value: signupDetails.email, httpOnly: true});
         cookies().set({name: 'first_name', value: signupDetails.first_name, httpOnly: true});
         cookies().set({name: 'last_name', value: signupDetails.last_name, httpOnly: true});
-        const addUserToTrainerURL = SITE_DOMAIN_NAME + ADD_USER_TO_TRAINERS + signupRes?.id;
+        const addUserToTrainerURL = BACKEND_DOMAIN_NAME + ADD_USER_TO_TRAINERS + signupRes?.id;
         const accessToken = await getAccessTokenServer();
-        console.log("switching to trainer")
-        console.log({accessToken})
         const makeTrainerResponse = await myFetch(
             addUserToTrainerURL,
             {

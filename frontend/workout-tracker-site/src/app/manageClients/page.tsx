@@ -11,7 +11,9 @@ const ClientUserPage: FC = (): React.ReactNode => {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center"
+                    alignItems: "center",
+                    // width: "80vw",
+                    justifyContent: "center",
                 }}
             >
                 <ClientUserCreate counterFunction={()=> setSubmitCounter(submitCounter + 1)}/>

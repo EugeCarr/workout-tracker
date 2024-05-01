@@ -2,7 +2,9 @@ export const CREATE_USER_ENDPOINT_REL_PATH = "/auth/users/";
 
 export const ADD_USER_TO_TRAINERS = "/api/users/add-to-trainers/"
 
-export const SITE_DOMAIN_NAME = "http://127.0.0.1:8000";
+export const SITE_DOMAIN_NAME = process.env.SITE_PUBLIC_DOMAIN_URL;
+
+export const BACKEND_DOMAIN_NAME = "http://127.0.0.1:8000";
 // export const SITE_DOMAIN_NAME = "https://workout-tracker-backend-3hdbux5xja-nw.a.run.app";
 
 export const GET_TOKEN_ENDPOINT = "/api/token/";

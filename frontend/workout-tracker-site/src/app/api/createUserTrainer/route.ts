@@ -2,7 +2,7 @@
 import { cookies } from 'next/headers'
 import { getTokenExpiryTime } from '../../utils';
 import { signupDetails } from "../../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../../config.js";
+import {BACKEND_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../../config.js";
 import { myFetch } from ".././fetchWrapper";
 import { getAccessTokenServer } from '.././getAccessTokenServer';
 
@@ -10,8 +10,8 @@ export const POST = async (request: Request) => {
 
     const body: signupDetails = await request.json();
 
-    const createUserURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
-    const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
+    const createUserURL = BACKEND_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
     
     const FIVE_MINS_TIME = getTokenExpiryTime()
     try{
@@ -48,7 +48,7 @@ export const POST = async (request: Request) => {
         cookies().set({name: 'email', value: body.email, httpOnly: true});
         cookies().set({name: 'first_name', value: body.first_name, httpOnly: true});
         cookies().set({name: 'last_name', value: body.last_name, httpOnly: true});
-        const addUserToTrainerURL = SITE_DOMAIN_NAME + ADD_USER_TO_TRAINERS + signupRes?.id;
+        const addUserToTrainerURL = BACKEND_DOMAIN_NAME + ADD_USER_TO_TRAINERS + signupRes?.id;
         const accessToken = await getAccessTokenServer();
         const makeTrainerResponse = await myFetch(
             addUserToTrainerURL,

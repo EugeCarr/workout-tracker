@@ -8,6 +8,7 @@ import Link from "next/link";
 import { getUsers } from "../api/getUsers";
 import { useReducer, useEffect, useState, EffectCallback, FC, Suspense} from "react";
 import { cookies } from "next/headers";
+import { SITE_DOMAIN_NAME } from "../config";
 
 interface Props {
     // wPlans: workoutPlan[],
@@ -32,15 +33,15 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
         () => {
 
             const getAllUsers = async(): Promise<void> => {
-
+                console.log(`${SITE_DOMAIN_NAME}/api/getUsers/1`)
                 const clientsRes = await fetch(
-                    `http://localhost:3000/api/getUsers/1`
+                    `/api/getUsers/1`
                 );   
                 const clients = await clientsRes.json();
                 setTrainees(clients)
 
                 const trainersRes = await fetch(
-                    `http://localhost:3000/api/getUsers/0`
+                    `/api/getUsers/0`
                 );   
                 const trainers = await trainersRes.json();
                 setPTs(trainers)

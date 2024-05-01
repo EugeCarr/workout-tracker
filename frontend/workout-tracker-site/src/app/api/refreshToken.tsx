@@ -1,13 +1,13 @@
 "use server";
 import { cookies } from "next/headers";
 import { authDetails, loginDetails } from "../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, REFRESH_TOKEN_ENDPOINT} from "../config.js";
+import {BACKEND_DOMAIN_NAME, REFRESH_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
 import { getTokenExpiryTime } from "../utils";
 
 export const getRefreshedAccessToken = async (refreshToken: string| undefined): Promise<string> => {
 
-    const fetchTokenURL = SITE_DOMAIN_NAME + REFRESH_TOKEN_ENDPOINT;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + REFRESH_TOKEN_ENDPOINT;
 
     try{
         const tokenResponse = await myFetch(

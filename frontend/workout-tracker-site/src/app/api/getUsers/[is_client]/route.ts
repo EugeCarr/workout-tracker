@@ -1,5 +1,5 @@
 "use server";
-import { GET_MULTIPLE_USERS_ENDPOINT, SITE_DOMAIN_NAME } from "../../../config";
+import { GET_MULTIPLE_USERS_ENDPOINT, BACKEND_DOMAIN_NAME } from "../../../config";
 import { myFetch } from "../../fetchWrapper";
 import { getAccessTokenServer } from "../../getAccessTokenServer";
 import { cookies } from "next/headers";
@@ -9,7 +9,7 @@ export const GET = async (
     {params}: {params: {is_client?: string}}
     )=>
     {
-    let fetchUserURL = SITE_DOMAIN_NAME + GET_MULTIPLE_USERS_ENDPOINT;
+    let fetchUserURL = BACKEND_DOMAIN_NAME + GET_MULTIPLE_USERS_ENDPOINT;
     if(params?.is_client === '1'){
         fetchUserURL = fetchUserURL + "?is_client=1"
     }else{

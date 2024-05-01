@@ -1,5 +1,5 @@
 "use server"
-import { GET_WORKOUTPLANS_ENDPOINT, SITE_DOMAIN_NAME } from "../config";
+import { GET_WORKOUTPLANS_ENDPOINT, BACKEND_DOMAIN_NAME } from "../config";
 import { authDetails, workoutPlan } from "../interfaces/interfaces";
 import { myFetch } from "./fetchWrapper";
 // import { getAccessTokenClient } from "./getAccessTokenClient";
@@ -7,9 +7,9 @@ import { getAccessTokenServer } from "./getAccessTokenServer";
 export const getWorkOutPlans = async (id?: number): Promise<workoutPlan[]> =>{
     let fetchplansURL = "";
     if(!id){
-        fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 
+        fetchplansURL = BACKEND_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT 
     }else{
-        fetchplansURL = SITE_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT + "/" + id
+        fetchplansURL = BACKEND_DOMAIN_NAME + GET_WORKOUTPLANS_ENDPOINT + "/" + id
     }
     const accessToken = await getAccessTokenServer();
 

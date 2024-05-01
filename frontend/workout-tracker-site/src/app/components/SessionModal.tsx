@@ -4,6 +4,7 @@ import {FC, useState} from "react"
 import { session } from "../interfaces/interfaces"
 import { format } from "path"
 import { MdCancel } from "react-icons/md"
+import { SITE_DOMAIN_NAME } from "../config"
 
 interface Props {
     session: session;
@@ -44,7 +45,7 @@ export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, wor
             url = "/api/createSession";
             actionMethod = "POST";
         }else{
-            url = `http://localhost:3000/api/updateSession/${editedSession.id}`;
+            url = `/api/updateSession/${editedSession.id}`;
             actionMethod = "PUT";
         }
         console.log({url, actionMethod})

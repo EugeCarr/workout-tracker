@@ -1,5 +1,5 @@
 "use server"
-import { GET_EXERCISES_ENDPOINT, SITE_DOMAIN_NAME } from "../../../config";
+import { GET_EXERCISES_ENDPOINT, BACKEND_DOMAIN_NAME } from "../../../config";
 import { myFetch } from "../../fetchWrapper";
 import { getAccessTokenServer } from "../../getAccessTokenServer";
 
@@ -8,7 +8,7 @@ export const GET = async (
     request: Request,
     {params}: {params: {session_id?: number}}
     )=>{
-        let fetchplansURL = SITE_DOMAIN_NAME + GET_EXERCISES_ENDPOINT + "?session_id=" + params.session_id
+        let fetchplansURL = BACKEND_DOMAIN_NAME + GET_EXERCISES_ENDPOINT + "?session_id=" + params.session_id
 
         const accessToken = await getAccessTokenServer();
 

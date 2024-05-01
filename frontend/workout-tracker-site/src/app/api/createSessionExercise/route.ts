@@ -1,5 +1,5 @@
 "use server"
-import { POST_CREATE_SESSION_EXERCISE, SITE_DOMAIN_NAME } from "../../config";
+import { POST_CREATE_SESSION_EXERCISE, BACKEND_DOMAIN_NAME } from "../../config";
 import { myFetch } from "../fetchWrapper";
 import { getAccessTokenServer } from "../getAccessTokenServer";
 
@@ -9,7 +9,7 @@ export const POST = async (
     ) =>{
         const body = await request.json()
 
-        const createExercisesURL = SITE_DOMAIN_NAME + POST_CREATE_SESSION_EXERCISE;   
+        const createExercisesURL = BACKEND_DOMAIN_NAME + POST_CREATE_SESSION_EXERCISE;   
         const accessToken = await getAccessTokenServer();
         try{
             const exercisesRes = await myFetch(

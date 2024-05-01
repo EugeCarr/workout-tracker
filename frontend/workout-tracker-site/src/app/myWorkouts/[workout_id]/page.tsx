@@ -7,6 +7,7 @@ import { SessionTable } from "@/app/components/SessionTable";
 import { SessionModal } from "@/app/components/SessionModal";
 import { SessionExerciseTable } from "@/app/components/SessionExerciseTable";
 import { SessionExerciseModal } from "@/app/components/SessionExerciseModal";
+import { SITE_DOMAIN_NAME } from "@/app/config";
 
 interface Props  {
     params: any
@@ -29,7 +30,7 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
         () => {
             const getWPlan = async (): Promise<void> => {
                 const planResponse = await fetch(
-                    `http://localhost:3000/api/getWorkoutPlans/${workout_id}`
+                    `/api/getWorkoutPlans/${workout_id}`
                 );                
                 const queriedPlan = await planResponse.json()
                 setPlan(queriedPlan)
@@ -39,7 +40,7 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
             const getExerciseTypes = async (): Promise<void> => {
                 console.log("Getting current exercise types")
                 const queriedTypes = await fetch(
-                    `http://localhost:3000/api/getExerciseTypes`
+                    `/api/getExerciseTypes`
                 );                
                 const allTypes = await queriedTypes.json()
                 setExerciseTypes(allTypes)
@@ -50,9 +51,6 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
             return 
         }, [workout_id]
     );
-
-    console.log({sessionsUpdatedCounter})
-    console.log({exerciseTypes})
     return (
         <Suspense>
             <div

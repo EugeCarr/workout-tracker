@@ -31,7 +31,8 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
             style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center"
+                alignItems: "center",
+                width: "80vw"
             }}           
         >
             <div 
@@ -90,7 +91,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                 <input
                     name="password"
                     id="password"
-                    type="text"
+                    type="password"
                     required
                     className="form-input"
                     value={signup.password|| ""}
@@ -101,7 +102,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                 <input
                     name="re_password"
                     id="re_password"
-                    type="text"
+                    type="password"
                     required
                     className="form-input"
                     value={signup.re_password||""}

@@ -2,13 +2,13 @@
 import { cookies } from 'next/headers'
 import { getTokenExpiryTime } from '../utils';
 import { signupDetails, authDetails } from "../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../config.js";
+import {BACKEND_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch, ResponseError } from "./fetchWrapper";
 
 export const createUserClient = async (signupDetails: signupDetails): Promise<authDetails> => {
 
-    const fetchURL = SITE_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
-    const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
+    const fetchURL = BACKEND_DOMAIN_NAME + CREATE_USER_ENDPOINT_REL_PATH;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
     try{
         const response = await myFetch(
             fetchURL,

@@ -6,6 +6,7 @@ import { MainpageCard } from "./components/MainpageCard";
 import { useEffect, useState } from "react";
 import { userAccount } from "./interfaces/interfaces";
 import { myFetch } from "./api/fetchWrapper";
+import { SITE_DOMAIN_NAME } from "./config";
 
 
 const Home = () => {
@@ -15,7 +16,7 @@ const Home = () => {
     () => {
       const getMyUser = async () : Promise<void> => {
         const myUserBody = await myFetch(
-          `http://localhost:3000/api/getLoggedInUser`,
+          `/api/getLoggedInUser`,
           {}
       );   
         // const myUserBody = await myUserRes.json();

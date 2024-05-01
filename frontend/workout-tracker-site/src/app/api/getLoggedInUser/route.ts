@@ -1,5 +1,5 @@
 "use server";
-import { GET_MY_USER_ENDPOINT, SITE_DOMAIN_NAME } from "../../config";
+import { GET_MY_USER_ENDPOINT, BACKEND_DOMAIN_NAME } from "../../config";
 import { myFetch } from "../fetchWrapper";
 import { getAccessTokenServer } from "../getAccessTokenServer";
 import { cookies } from "next/headers";
@@ -8,10 +8,8 @@ export const GET = async (
     request: Request,
     )=>
     {
-    let fetchUserURL = SITE_DOMAIN_NAME + GET_MY_USER_ENDPOINT;
+    let fetchUserURL = BACKEND_DOMAIN_NAME + GET_MY_USER_ENDPOINT;
     const accessToken = await getAccessTokenServer();
-    console.log("getting logged in user")
-    console.log({accessToken})
     try{
         const userRes = await myFetch(
             fetchUserURL,

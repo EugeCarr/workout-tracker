@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { signupDetails} from "../interfaces/interfaces";
 import { loginUser } from "../api/login";
 import CreateUserForm from "./CreateUserForm";
-import { createUserTrainer } from "../api/signupTrainer";
 
 export const SignupFormTrainer: FC = (): React.ReactNode => {    
     const [signup, setSignup] = useState<signupDetails>({} as signupDetails);
@@ -49,14 +48,22 @@ export const SignupFormTrainer: FC = (): React.ReactNode => {
     };
 
     return (
-        <CreateUserForm
-            buttonAction={submitAction}
-            formTitle="Create New Trainer"
-            buttonText="Create Account"
-            signup={signup}
-            setSignUp={setSignup}
-            errorMessages={errorMessages}
-            badSignup={badSignup}
-        />
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}
+        >
+            <CreateUserForm
+                buttonAction={submitAction}
+                formTitle="Create New Trainer"
+                buttonText="Create Account"
+                signup={signup}
+                setSignUp={setSignup}
+                errorMessages={errorMessages}
+                badSignup={badSignup}
+            />
+        </div>
     )
 };

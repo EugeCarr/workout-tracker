@@ -1,11 +1,11 @@
 "use server";
-import { GET_USER_ENDPOINT, SITE_DOMAIN_NAME } from "../config";
+import { GET_USER_ENDPOINT, BACKEND_DOMAIN_NAME } from "../config";
 import { cookies } from "next/headers";
 import { myFetch } from "./fetchWrapper";
 import { getAccessTokenServer } from "./getAccessTokenServer";
 
 export const getUserDetails = async (): Promise<void> =>{
-    const fetchUserURL = SITE_DOMAIN_NAME + GET_USER_ENDPOINT;
+    const fetchUserURL = BACKEND_DOMAIN_NAME + GET_USER_ENDPOINT;
 
     console.log(fetchUserURL)
 

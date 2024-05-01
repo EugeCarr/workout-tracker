@@ -3,6 +3,7 @@ import { session } from "../interfaces/interfaces";
 import React, { FC, useState, useEffect } from "react";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
 import { BiSolidZoomIn } from "react-icons/bi";
+import { SITE_DOMAIN_NAME } from "../config";
 interface Props {
     workoutPlanId: number;
     setIsModalOpen: (isOpen: boolean)=> void;
@@ -20,7 +21,7 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
         () => {
             const getSessions = async(workoutPlan_id: number): Promise<void> => {
                 const sessionsRes = await fetch(
-                    `http://localhost:3000/api/getWorkoutPlans/getWorkoutSessions/${workoutPlan_id}`
+                    `/api/getWorkoutPlans/getWorkoutSessions/${workoutPlan_id}`
                 )
                 const qSessions = await sessionsRes.json();
                 SetListSessions(qSessions)

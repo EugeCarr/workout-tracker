@@ -8,10 +8,11 @@ import { IconContext } from "react-icons";
 import Link from "next/link";
 
 interface Props {
-    first_name: string | undefined
+    first_name: string | undefined;
+    showLinks: boolean;
 }
 
-const SiteBanner: FC<Props> = ({first_name}): React.ReactNode => {
+const SiteBanner: FC<Props> = ({first_name, showLinks}): React.ReactNode => {
 
     return (
         <div
@@ -20,32 +21,35 @@ const SiteBanner: FC<Props> = ({first_name}): React.ReactNode => {
             {
                 !!first_name ? <><p>Welcome {first_name}</p></>: <><p>Welcome to the workout Tracker</p></>
             }  
-            <IconContext.Provider value={{className: "site-banner-icon", size:"2rem"}}>
-                <Link
-                        href={"/"}
+            {
+                showLinks &&
+                <IconContext.Provider value={{className: "site-banner-icon", size:"2rem"}}>
+                    <Link
+                            href={"/"}
+                        >
+                        <FaHouseChimney
+                            title="Home"
+
+                        />
+                    </Link>
+                    <Link
+                        href={"/myWorkouts"}
                     >
-                    <FaHouseChimney
-                        title="Home"
+                        <FaCalendarAlt
+                            title="My Workouts"
 
-                    />
-                </Link>
-                <Link
-                    href={"/myWorkouts"}
-                >
-                    <FaCalendarAlt
-                        title="My Workouts"
-
-                    />
-                </Link>
-                <Link
-                    href={"/exerciseLibrary"}
-                >
-                    <FaDumbbell
-                        title="Exercise Library"
-                    />                 
-                </Link>
-                
-            </IconContext.Provider>        
+                        />
+                    </Link>
+                    <Link
+                        href={"/exerciseLibrary"}
+                    >
+                        <FaDumbbell
+                            title="Exercise Library"
+                        />                 
+                    </Link>
+                    
+                </IconContext.Provider> 
+            }       
             <p>My workout Tracker</p>
         </div>
     )

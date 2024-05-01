@@ -1,5 +1,5 @@
 "use server"
-import { POST_CREATE_WORKOUT_PLANS, SITE_DOMAIN_NAME } from "../../config";
+import { POST_CREATE_WORKOUT_PLANS, BACKEND_DOMAIN_NAME } from "../../config";
 import { authDetails, workoutPlan } from "../../interfaces/interfaces";
 import { myFetch } from "../fetchWrapper";
 import { getAccessTokenClient } from "../getAccessTokenClient";
@@ -11,7 +11,7 @@ export const POST = async (
     ) =>{
         const body = await request.json()
 
-        const createPlansURL = SITE_DOMAIN_NAME + POST_CREATE_WORKOUT_PLANS;   
+        const createPlansURL = BACKEND_DOMAIN_NAME + POST_CREATE_WORKOUT_PLANS;   
         const accessToken = await getAccessTokenServer();
         try{
             const plansRes = await myFetch(

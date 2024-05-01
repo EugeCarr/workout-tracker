@@ -2,13 +2,13 @@
 import { cookies } from 'next/headers'
 import { getTokenExpiryTime } from '../utils';
 import { authDetails, loginDetails } from "../interfaces/interfaces";
-import {SITE_DOMAIN_NAME, GET_TOKEN_ENDPOINT} from "../config.js";
+import {BACKEND_DOMAIN_NAME, GET_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch } from "./fetchWrapper";
 import { getUserDetails } from './getUserDetails';
 
 export const loginUser = async (loginDetails: loginDetails): Promise<authDetails| null> => {
 
-    const fetchTokenURL = SITE_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
+    const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
 
     const FIVE_MINS_TIME = getTokenExpiryTime();
     cookies().set({name: 'authToken', value: "", httpOnly: true, expires: FIVE_MINS_TIME });
