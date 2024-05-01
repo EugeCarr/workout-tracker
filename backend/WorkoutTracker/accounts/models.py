@@ -17,21 +17,11 @@ class UserAccountManager(BaseUserManager):
             user.save()
         except Exception as e:
             print(e)
-        # selectedGroup = Group.objects.get(name=groupName)
-        # selectedGroup.user_set.add(user)
         return user
     
     def create_user(self, email, groupName="Client", password=None, **extra_fields):
-        print({
-           "email": email,
-           "password": password,
-           "extra_fields": extra_fields
-        #    "firstName": extra_fields.first_name
-        })
         user= self._create_user(email, is_staff=False, is_superuser=False, password=password, **extra_fields)
-        print(user)
         selectedGroup = Group.objects.get(name=groupName)
-        print(selectedGroup)
         selectedGroup.user_set.add(user)
         return user
     

@@ -40,7 +40,7 @@ const Home = () => {
     >
       <MainpageCard
         title="Workout Plans"
-        photoSrc="https://www.shutterstock.com/image-vector/weightlifting-dumbbell-training-icon-260nw-551668651.jpg"
+        photoSrc="https://cdn1.vectorstock.com/i/thumb-large/35/50/stick-figure-man-lifts-heavy-barbell-over-his-vector-38013550.jpg"
         description="Create and edit workouts for clients and trainers."
         pageRoute="/myWorkouts"
         altText="Photo of stick man working out"
@@ -49,7 +49,7 @@ const Home = () => {
         isUserTrainer &&
           <MainpageCard
           title="Manage Clients"
-          photoSrc="https://t3.ftcdn.net/jpg/02/65/07/74/360_F_265077477_ZGCVj8sIdqcwSjiAAYYap6AY0ukgdry3.jpg"
+          photoSrc='https://d3n8a8pro7vhmx.cloudfront.net/righttoresearch/pages/1087/attachments/original/1476386726/Meetup_Icons-traditionalmt-06.png?1476386726'
           description="View and create Clients for the Workout Tracker."
           pageRoute="/manageClients"
           altText="Clients"

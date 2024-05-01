@@ -44,7 +44,8 @@ export const MainpageCard: FC<mainPageCardDetails> = ({
                         src={photoSrc}
                         style={
                             {
-                                width: "18rem"
+                                width: "18rem",
+                                height: "18rem"
                             }
                         }
                         alt={altText}
