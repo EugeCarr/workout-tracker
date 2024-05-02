@@ -42,12 +42,39 @@ p {
     align-items: center;
     background-color: var(--card-background-color);
     color: var(--accent-colour);
+    padding-top: 0.5rem;
+    width: 100vw;
 }
 
-.site-banner > p {
+.site-banner-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-background-color);
+    color: var(--accent-colour);
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 100vw;
+    margin: 0rem;
+}
+
+.bannerTitle {
     font-size: 1.5rem;
     color: var(--accent-colour);
     padding-top: 1rem;
+    padding-bottom: 0.2rem;
+}
+
+.bannerSubtitle {
+    font-size: 1rem;
+    color: var(--text-colour);
+    padding: 0rem;
+    margin: 0rem;
+}
+.bannerSubtitle:hover {
+    color: var(--link-hover-color);
+    text-decoration-color: var(--link-hover-color);
 }
 
 .site-banner-icon {
@@ -59,6 +86,17 @@ p {
 
 .headingLink:hover {
     color: var(--link-hover-color);
+}
+
+.textLink {
+    text-decoration: underline;
+    text-decoration-color: var(--text-colour);
+    color: var(--text-colour);
+}
+
+.textLink:hover {
+    color: var(--link-hover-color);
+    text-decoration-color: var(--link-hover-color);
 }
 
 .title {
@@ -114,6 +152,14 @@ p {
     background-color: var(--dark-accent-color);
     color:white;
     border-radius: 10px;  
+}
+
+.form-button:disabled {
+    background-color: grey;
+}
+
+.form-button:disabled:hover {
+    background-color: grey;
 }
 
 .form-button:hover {

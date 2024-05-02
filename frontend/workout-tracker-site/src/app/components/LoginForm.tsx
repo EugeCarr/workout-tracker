@@ -74,8 +74,8 @@ const LoginForm = (): React.ReactNode => {
                 onClick={buttonAction}
                 // style={"height:1.5remwidth:3rem"}
             >Log in</button>
-            <Link href="/signup">
-                <p>No acccount? Sign up</p>
+            <Link href="/signup" >
+                <p className="textLink">No acccount? Sign up</p>
             </Link>
             
         </div>
