@@ -57,7 +57,7 @@ const LoginForm = (): React.ReactNode => {
             />
             <input
                 name="password"
-                type="text"
+                type="password"
                 className="login-input"
                 value={login.password}
                 onChange = {handleChange}
