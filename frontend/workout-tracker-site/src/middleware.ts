@@ -10,7 +10,9 @@ export const middleware = (request: NextRequest): NextResponse =>  {
     if(currentPath.startsWith("/_next")) return NextResponse.next();
 
     const refreshToken: (RequestCookie| undefined)  = cookies().get("refreshToken");    
-    if(request.nextUrl.pathname !== "/login"){
+    if(request.nextUrl.pathname === "/signup"){
+        return NextResponse.next()
+    } else if(request.nextUrl.pathname !== "/login"){
         if( !refreshToken?.value){
             return NextResponse.redirect(new URL('/login', request.url));    
         }

@@ -118,7 +118,6 @@ class UserAccountList(generics.ListAPIView):
         
     def get_queryset(self):
         try: 
-            print(self.request.query_params.get('is_client'))  
             isClient = self.request.query_params.get('is_client')           
             if isClient not in ['1', '0']:
                 return HttpResponseBadRequest(content={"message": "You must specify whether clients or trainers is requested"})
@@ -127,7 +126,6 @@ class UserAccountList(generics.ListAPIView):
                 data = self.queryset.filter(groups__name="Client")
             else:
                 data = self.queryset.filter(groups__name="Trainer")
-            print(data)
             return data
         except KeyError:
             return HttpResponseBadRequest(content={"You must specify whether clients or trainers is requested"})
