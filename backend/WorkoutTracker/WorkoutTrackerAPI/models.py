@@ -19,7 +19,7 @@ class Session(models.Model):
     name = models.CharField(max_length=255)
     plannedDate = models.DateField()
     completedDate = models.DateField(default=None, null=True)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     
     def __str__(self) -> str:
         return "{}: {} - {}".format(self.workoutPlan.name, self.name, self.plannedDate)
@@ -32,7 +32,7 @@ class MuscleGroup(models.Model):
 
 class ExerciseType(models.Model):
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     muscleGroups = models.ManyToManyField(MuscleGroup, related_name="muscleGroups")
     def __str__(self) -> str:
         return self.name
