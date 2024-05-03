@@ -9,7 +9,7 @@ export const PUT = async (
     {params}: {params: {exercise_id: number}}
     ) =>{
         const body = await request.json()
-        console.log(request.body)
+        // console.log(request.body)
         const updateExerciseURL = BACKEND_DOMAIN_NAME + POST_CREATE_SESSION_EXERCISE + "/" + params.exercise_id;   
         const accessToken = await getAccessTokenServer();
         try{

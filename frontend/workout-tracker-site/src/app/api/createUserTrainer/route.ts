@@ -25,7 +25,7 @@ export const POST = async (request: Request) => {
                 },
             },        
         );
-        console.log({signupRes})
+        // console.log({signupRes})
         const tokenResponse = await myFetch(
             fetchTokenURL,
             {
@@ -42,7 +42,7 @@ export const POST = async (request: Request) => {
             }
             
         );
-        console.log({tokenResponse})
+        // console.log({tokenResponse})
         cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME });
         cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true});
         cookies().set({name: 'email', value: body.email, httpOnly: true});

@@ -16,7 +16,7 @@ export const ClientUserCreate: FC<Props> = ({ counterFunction}): React.ReactNode
     const [badSignup, setBadSignup] = useState<string>("");
 
     const submitAction =  async (): Promise<void>=> {
-        console.log(newClientUser);
+        // console.log(newClientUser);
         const {password, re_password} = newClientUser;
         if(password !==re_password){
             setErrorMessages([

@@ -7,7 +7,6 @@ import { getAccessTokenServer } from "./getAccessTokenServer";
 
 export const createWorkoutPlans = async (wPlan: workoutPlan): Promise<workoutPlan> =>{
     let createPlansURL = BACKEND_DOMAIN_NAME + POST_CREATE_WORKOUT_PLANS;
-    console.log(createPlansURL)    
     const accessToken = await getAccessTokenServer();
     try{
         const plansRes = await myFetch(

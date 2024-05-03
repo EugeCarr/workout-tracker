@@ -9,7 +9,7 @@ import { getUserDetails } from '.././getUserDetails';
 export const GET = async (
     request: Request
     )=> {
-    console.log("Logging user out");
+    // console.log("Logging user out");
     cookies().delete('authToken');
     cookies().delete('refreshToken');
     cookies().delete('first_name');

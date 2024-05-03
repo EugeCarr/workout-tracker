@@ -6,7 +6,7 @@ import { getAccessTokenServer } from "../getAccessTokenServer";
 
 export const GET = async (request: Request) => {
         let fetchExerciseTypesURL = BACKEND_DOMAIN_NAME + GET_EXERCISE_TYPES_ENDPOINT 
-        console.log(fetchExerciseTypesURL)
+        // console.log(fetchExerciseTypesURL)
         const accessToken = await getAccessTokenServer();
         
         try{
