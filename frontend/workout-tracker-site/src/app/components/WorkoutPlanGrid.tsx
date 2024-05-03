@@ -76,7 +76,7 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
                                 key={wPlan.id}
                             >
                                 
-                                <WorkoutDisplayCard workoutPlan={wPlan|| {} as workoutPlan}/>
+                                <WorkoutDisplayCard workoutPlan={wPlan|| {} as workoutPlan} className="link-card"/>
                         </Link>                       
                     ))
                 }
