@@ -87,7 +87,7 @@ const CreateUserForm: FC<Props> = ({buttonAction, formTitle, buttonText, signup,
                     onChange = {(e) => {handleChange(e)}}
                     placeholder="Email"
                 />   
-                <label htmlFor="password" className="standard-form-label">Surname: </label>
+                <label htmlFor="password" className="standard-form-label">Password: </label>
                 <input
                     name="password"
                     id="password"

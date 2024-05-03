@@ -23,7 +23,7 @@ export const createUserTrainer = async (signupDetails: signupDetails): Promise<a
                 },
             },        
         );
-        console.log({signupRes})
+        // console.log({signupRes})
         const tokenResponse = await myFetch(
             fetchTokenURL,
             {

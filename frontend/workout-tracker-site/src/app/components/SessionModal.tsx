@@ -111,6 +111,7 @@ export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, wor
                         <input
                             name="description"
                             id="description"
+                            maxLength={1000}
                             type="text"
                             required
                             className="form-input"

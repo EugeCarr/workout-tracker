@@ -22,7 +22,7 @@ export const POST = async (request: Request) => {
                 },
             },        
         );
-        console.log(response)
+        // console.log(response)
         const tokenResponse = await myFetch(
             fetchTokenURL,
             {

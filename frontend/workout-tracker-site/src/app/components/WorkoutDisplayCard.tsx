@@ -4,20 +4,21 @@ import React, { FC } from "react";
 
 interface Props {
     workoutPlan: workoutPlan | undefined;
+    className: string
 }
 
-export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan}): React.ReactNode => {
+export const WorkoutDisplayCard: FC<Props > = ({ workoutPlan, className}): React.ReactNode => {
     return (
         <div
             style={{
                 color:"#141414",
                 borderRadius:"1rem",
-                marginLeft:"5rem",
-                marginRight:"5rem",
+                marginLeft:"15rem",
+                marginRight:"15rem",
                 marginBottom:"0.5rem",
                 padding:"1rem",
             }}
-            className="link-card"
+            className={className}
         >
             <div
                 style={{

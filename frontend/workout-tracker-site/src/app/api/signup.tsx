@@ -20,7 +20,7 @@ export const createUserClient = async (signupDetails: signupDetails): Promise<au
                 },
             },        
         );
-        console.log(response)
+        // console.log(response)
         const tokenResponse = await myFetch(
             fetchTokenURL,
             {

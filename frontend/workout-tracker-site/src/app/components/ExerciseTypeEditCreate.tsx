@@ -98,6 +98,7 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
                     placeholder="Description"
                     id="description"
                     width="80vw"
+                    maxLength={1000}
                     type="textarea"
                     size={100}
                     spellCheck={true}

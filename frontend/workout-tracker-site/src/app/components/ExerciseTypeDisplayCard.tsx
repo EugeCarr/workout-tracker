@@ -23,8 +23,8 @@ export const ExerciseTypeDisplayCard: FC<Props > = ({ exerciseType}): React.Reac
             style={{
                 color:"#141414",
                 borderRadius:"1rem",
-                marginLeft:"5rem",
-                marginRight:"5rem",
+                marginLeft:"15rem",
+                marginRight:"15rem",
                 marginBottom:"0.5rem",
                 padding:"1rem",
             }}
