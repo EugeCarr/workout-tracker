@@ -8,6 +8,8 @@ import { SessionModal } from "@/app/components/SessionModal";
 import { SessionExerciseTable } from "@/app/components/SessionExerciseTable";
 import { SessionExerciseModal } from "@/app/components/SessionExerciseModal";
 import { SITE_DOMAIN_NAME } from "@/app/config";
+import { DeleteSessionModal } from "@/app/components/DeleteSessionModal";
+import { DeleteExerciseModal } from "@/app/components/DeleteExerciseModal";
 
 interface Props  {
     params: any
@@ -20,11 +22,16 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
     const [selectedSession, setSelectedSession] = useState<session>({} as session);
     const [sessionsUpdatedCounter, setSessionsUpdatedCounter] = useState<number>(0);    
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isSessDeleteModalOpen, setIsSessDeleteModalOpen] = useState<boolean>(false);
+    const [selectedDeleteSession, setSelectedDeleteSession] = useState<session>({} as session);
+
+
     const [selectedExercise, setSelectedExercise] = useState<exercise>({} as exercise);
     const [selectedViewSession, setSelectedViewSession] = useState<session>({} as session);
-    const [isExerciseModalOpen, setIsExerciseModalOpen] = useState<boolean>(false);
-    
+    const [isExerciseModalOpen, setIsExerciseModalOpen] = useState<boolean>(false);    
     const [exercisesUpdatedCounter, setExercisesUpdatedCounter] = useState<number>(0);
+    const [isExDeleteModalOpen, setIsExDeleteModalOpen] = useState<boolean>(false);
+    const [selectedDeleteExercise, setSelectedDeleteExercise] = useState<exercise>({} as exercise);
 
     useEffect(
         () => {
@@ -58,7 +65,7 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                 height: "100%"
             }}
             >
-                <WorkoutDisplayCard workoutPlan={plan} key={plan.id}/>
+                <WorkoutDisplayCard workoutPlan={plan} key={plan.id} className=""/>
 
                 <div
                 style={{
@@ -74,6 +81,8 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                         sessionsUpdatedCounter={sessionsUpdatedCounter}
                         setSelectedViewSession={setSelectedViewSession}
                         selectedViewSession={selectedViewSession}
+                        setIsSessDeleteModalOpen={setIsSessDeleteModalOpen}
+                        setSelectedDeleteSession={setSelectedDeleteSession}
                     />            
                     {
                         !!selectedViewSession.id &&
@@ -81,7 +90,9 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                             setIsExerciseModalOpen={(isOpen: boolean): void=> setIsExerciseModalOpen(isOpen)}
                             session={selectedViewSession}
                             updateCounter={exercisesUpdatedCounter}
-                            setSelectedExercise={(ex:exercise)=> setSelectedExercise(ex)}                       
+                            setSelectedExercise={(ex:exercise)=> setSelectedExercise(ex)}     
+                            setIsExDeleteModalOpen={setIsExDeleteModalOpen}
+                            setSelectedDeleteExercise={setSelectedDeleteExercise}                  
                         />
                     }
                 </div>
@@ -103,6 +114,24 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                         setUpdateCounter={()=> setExercisesUpdatedCounter(exercisesUpdatedCounter + 1)}
                         session_id={selectedViewSession.id}
                         exerciseTypes={exerciseTypes}
+                    />
+                }
+                {
+                    isSessDeleteModalOpen &&
+                    <DeleteSessionModal
+                        session={selectedDeleteSession}
+                        closeModal={() => setIsSessDeleteModalOpen(false)}
+                        updateCounter={()=> {setSessionsUpdatedCounter(sessionsUpdatedCounter + 1)}}
+                        setSelectedDeleteSession={setSelectedDeleteSession}
+                    />
+                }
+                {
+                    isExDeleteModalOpen &&
+                    <DeleteExerciseModal 
+                        exercise={selectedDeleteExercise}
+                        closeModal={() => setIsExDeleteModalOpen(false)}
+                        updateCounter={()=> setExercisesUpdatedCounter(exercisesUpdatedCounter + 1)}
+                        setSelectedDeleteExercise={setSelectedDeleteExercise}
                     />
                 }
             </div>

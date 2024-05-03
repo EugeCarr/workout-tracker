@@ -9,15 +9,17 @@ interface Props {
     setIsExerciseModalOpen: (isOpen: boolean)=> void;
     setSelectedExercise: (exercise: exercise) => void;
     updateCounter: number;
+    setSelectedDeleteExercise: (exercise: exercise) => void;
+    setIsExDeleteModalOpen: (isOpen: boolean)=> void;
 }
 
-export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOpen, setSelectedExercise, updateCounter}): React.ReactNode => {
+export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOpen, setSelectedExercise, updateCounter, setSelectedDeleteExercise, setIsExDeleteModalOpen}): React.ReactNode => {
     const [listexercises, SetListexercises] = useState<exercise[]>([] as exercise[]);
 
     const deleteSession = async (exercise_id: number): Promise<void> => {
-        setTimeout(() => {
-            console.log(`delete exercise: ${exercise_id}`)
-        }, 1000);
+        const selectExercise = listexercises.find((ex)=> ex.id === exercise_id) || {} as exercise
+        setSelectedDeleteExercise(selectExercise);
+        setIsExDeleteModalOpen(true); 
         return 
     };
 

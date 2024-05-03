@@ -154,6 +154,22 @@ p {
     border-radius: 10px;  
 }
 
+.delete-button {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem; 
+    border: none;
+    padding: 0.25rem 0.5rem;
+    background-color: darkred;
+    color:white;
+    border-radius: 10px;  
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    background-color: red;
+    border: 1px;
+}
+
 .form-button:disabled {
     background-color: grey;
 }

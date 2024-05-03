@@ -11,9 +11,11 @@ interface Props {
     sessionsUpdatedCounter: number;
     setSelectedViewSession: (session: session) => void;
     selectedViewSession: session;
+    setSelectedDeleteSession: (session: session) => void;
+    setIsSessDeleteModalOpen: (isOpen: boolean) => void;
 }
 
-export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter, setSelectedViewSession, selectedViewSession}): React.ReactNode => {
+export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter, setSelectedViewSession, selectedViewSession, setIsSessDeleteModalOpen, setSelectedDeleteSession}): React.ReactNode => {
     console.log({workoutPlanId})
     const [listSessions, SetListSessions] = useState<session[]>([] as session[]);
 
@@ -33,6 +35,9 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
     );
 
     const deleteSession = (session_id: number): void => {
+        const selectSession = listSessions.find((sess)=> sess.id === session_id) || {} as session
+        setSelectedDeleteSession(selectSession);
+        setIsSessDeleteModalOpen(true);
         return 
     };
 
