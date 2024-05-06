@@ -22,23 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '')
+# SECRET_KEY = os.environ.get('SECRET_KEY', '')
+SECRET_KEY = '0pt&pz2eq+$3t#ubc!*8q8e=nrg)1z+w1@p6nhl85@fuz%jfxt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
-SECRET_KEY = "0pt&pz2eq+$3t#ubc!*8q8e=nrg)1z+w1@p6nhl85@fuz%jfxt"
+ALLOWED_HOSTS = ['workout-tracker-backend-02-iaqmiwc3pa-nw.a.run.app']
+# SECRET_KEY = "0pt&pz2eq+$3t#ubc!*8q8e=nrg)1z+w1@p6nhl85@fuz%jfxt"
 # DEBUG = False
 
-# CLOUDRUN_SERVICE_URL = os.environ.get('CLOUDRUN_SERVICE_URL')
+CLOUDRUN_SERVICE_URL = 'workout-tracker-backend-02-iaqmiwc3pa-nw.a.run.app'
 
-# if CLOUDRUN_SERVICE_URL:
-#     ALLOWED_HOSTS = [CLOUDRUN_SERVICE_URL]
-#     CSRF_TRUSTED_ORIGINS = ['https://' + CLOUDRUN_SERVICE_URL]
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-# else:
-#     ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = ['https://' + CLOUDRUN_SERVICE_URL]
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 
 # Application definition
@@ -168,7 +166,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     # 'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     # 'SEND_CONFIRMATION_EMAIL': True,
-    'SET_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': False,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': ACCOUNT_SERIALIZER,

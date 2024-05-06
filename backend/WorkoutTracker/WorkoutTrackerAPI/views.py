@@ -137,8 +137,8 @@ class MuscleGroupListCreate(ClientReadOnlyPermissionMixin, CreateListMixin, gene
     permission_classes = [IsAuthenticated]
     
 
-class ChangeUserToTrainer(generics.UpdateAPIView):
+class ChangeUserToTrainer(generics.RetrieveUpdateAPIView):
     serializer_class = serializers.UserGroupManagementSerializer
     throttle_classes = [UserRateThrottle]
-    queryset = UserAccount.objects.all()
+    queryset = UserAccount.objects.all()   
     
