@@ -38,7 +38,6 @@ export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, wor
     };
 
     const buttonAction = async (): Promise<void> => {
-        console.log("testing button for modal")
         let url = "";
         let actionMethod = ""
         if(!editedSession?.id){
@@ -48,15 +47,12 @@ export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, wor
             url = `/api/updateSession/${editedSession.id}`;
             actionMethod = "PUT";
         }
-        console.log({url, actionMethod})
-        console.log(editedSession)
         const requestSession = {
             name: editedSession.name,
             description: editedSession.description,
             plannedDate: editedSession.plannedDate,
             workoutPlan_id: workoutPlan_id
         }
-        console.log({requestSession})
         const writeSession: Response = await fetch(
             url,
             {
@@ -65,7 +61,6 @@ export const SessionModal: FC<Props> = ({session, closeModal, updateCounter, wor
             }
         );
         const writtenSession = await writeSession.json();
-        console.log({writtenSession});
         if(!!writtenSession){
             updateCounter();
             closeModal();

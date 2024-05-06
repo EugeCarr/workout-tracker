@@ -7,7 +7,6 @@ import { getAccessTokenServer } from "./getAccessTokenServer";
 export const getUserDetails = async (): Promise<void> =>{
     const fetchUserURL = BACKEND_DOMAIN_NAME + GET_USER_ENDPOINT;
 
-    console.log(fetchUserURL)
 
     const accessToken = await getAccessTokenServer()
     // console.log(accessToken)

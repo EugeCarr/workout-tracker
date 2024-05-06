@@ -45,7 +45,6 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                 return
             };
             const getExerciseTypes = async (): Promise<void> => {
-                console.log("Getting current exercise types")
                 const queriedTypes = await fetch(
                     `/api/getExerciseTypes`
                 );                

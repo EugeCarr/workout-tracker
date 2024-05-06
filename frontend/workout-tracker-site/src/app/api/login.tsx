@@ -6,7 +6,7 @@ import {BACKEND_DOMAIN_NAME, GET_TOKEN_ENDPOINT} from "../config.js";
 import { myFetch } from "./fetchWrapper";
 import { getUserDetails } from './getUserDetails';
 
-export const loginUser = async (loginDetails: loginDetails): Promise<authDetails| null> => {
+export const loginUser = async (loginDetails: loginDetails): Promise<authDetails> => {
 
     const fetchTokenURL = BACKEND_DOMAIN_NAME + GET_TOKEN_ENDPOINT;
 
@@ -39,9 +39,9 @@ export const loginUser = async (loginDetails: loginDetails): Promise<authDetails
             email: loginDetails.email,
             authToken: tokenResponse["access"],
             refreshToken: tokenResponse["refresh"],
-        };             
+        } || {} as authDetails;             
     }catch(error) {
         console.log(error)
-        return null
+        return {} as authDetails
     }
 }

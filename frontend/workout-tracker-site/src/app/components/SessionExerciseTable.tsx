@@ -39,10 +39,8 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
     );
     const editSession = async (exercise_id: number): Promise<void> => {
         setTimeout(() => {
-            console.log(`edit Session: ${exercise_id}`)
         }, 1000);        
         const selectExercise = listexercises.find((ex)=> ex.id === exercise_id) || {} as exercise
-        console.log(selectExercise)
         setSelectedExercise({
             ...selectExercise,
             type_id: selectExercise.type?.id || 0
@@ -56,19 +54,15 @@ export const SessionExerciseTable: FC<Props > = ({ session, setIsExerciseModalOp
         const muscleGroups = exercise.type?.muscleGroups;
         const string = muscleGroups?.reduce(
             (finalString, currentMg: muscleGroup)=> {
-                const test = currentMg.name
-                console.log({test})
                 let newString = "";
                 if(!finalString){
                     newString = currentMg.name|| "";
                 }else{
                     newString = finalString + ", " + currentMg.name
                 }
-                console.log({newString})
                 return newString
             },""
         );
-        console.log(string)
         return string || ""
     }
 

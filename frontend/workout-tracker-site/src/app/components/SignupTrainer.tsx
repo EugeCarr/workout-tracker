@@ -14,7 +14,6 @@ export const SignupFormTrainer: FC = (): React.ReactNode => {
     const homePageRouter = useRouter();
 
     const submitAction =  async (): Promise<void>=> {
-        console.log(signup);
         const {password, re_password} = signup;
         if(password !==re_password){
             setErrorMessages([

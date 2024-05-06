@@ -1,10 +1,11 @@
 "use server";
 import { cookies } from 'next/headers'
 import { getTokenExpiryTime } from '../../utils';
-import { signupDetails } from "../../interfaces/interfaces";
+import { authDetails, signupDetails } from "../../interfaces/interfaces";
 import {BACKEND_DOMAIN_NAME, CREATE_USER_ENDPOINT_REL_PATH, GET_TOKEN_ENDPOINT, ADD_USER_TO_TRAINERS} from "../../config.js";
 import { myFetch } from ".././fetchWrapper";
 import { getAccessTokenServer } from '.././getAccessTokenServer';
+import { loginUser } from '../login';
 
 export const POST = async (request: Request) => {
 
@@ -25,26 +26,15 @@ export const POST = async (request: Request) => {
                 },
             },        
         );
-        // console.log({signupRes})
-        const tokenResponse = await myFetch(
-            fetchTokenURL,
+
+        const loginResponse: authDetails = await loginUser(
             {
-                method: "POST",
-                body: JSON.stringify(
-                    {
-                        email: body.email,
-                        password: body.password
-                    }
-                ),
-                headers: {
-                    "Content-Type": "application/json",
-                    },
+                email: body.email,
+                password: body.password
             }
-            
         );
-        // console.log({tokenResponse})
-        cookies().set({name: 'authToken', value: tokenResponse["access"], httpOnly: true, expires: FIVE_MINS_TIME });
-        cookies().set({name: 'refreshToken', value: tokenResponse["refresh"], httpOnly: true});
+        cookies().set({name: 'authToken', value: loginResponse.authToken || "", httpOnly: true, expires: FIVE_MINS_TIME });
+        cookies().set({name: 'refreshToken', value: loginResponse.refreshToken|| "", httpOnly: true});
         cookies().set({name: 'email', value: body.email, httpOnly: true});
         cookies().set({name: 'first_name', value: body.first_name, httpOnly: true});
         cookies().set({name: 'last_name', value: body.last_name, httpOnly: true});
@@ -53,7 +43,7 @@ export const POST = async (request: Request) => {
         const makeTrainerResponse = await myFetch(
             addUserToTrainerURL,
             {
-                method: "PATCH",
+                method: "PUT",
                 body: JSON.stringify(
                     {
                         id: signupRes?.id
@@ -69,8 +59,8 @@ export const POST = async (request: Request) => {
         return new Response(
             JSON.stringify({
                 email: body.email,
-                authToken: tokenResponse["access"],
-                refreshToken: tokenResponse["refresh"],
+                authToken: loginResponse.authToken,
+                refreshToken: loginResponse.refreshToken,
                 first_name: body.first_name,
                 last_name: body.last_name,
             }),

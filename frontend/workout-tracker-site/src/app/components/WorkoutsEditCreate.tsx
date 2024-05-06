@@ -13,7 +13,6 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
     const [editedWPlan, setEditedWPlan] = useState<workoutPlan>({} as workoutPlan);
 
     const buttonAction = async (): Promise<void> => {
-        console.log("testing button")
         const writePlan: Response = await fetch(
             "/api/createWorkoutPlan",
             {
@@ -22,7 +21,6 @@ export const WorkoutEditCreate: FC<Props > = ({trainerUsers, clientUsers, submit
             }
         );
         const writtenPlan = await writePlan.json();
-        console.log({writtenPlan});
         if(!!writtenPlan){
             setEditedWPlan({
                 name: "",

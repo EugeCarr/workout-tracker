@@ -19,7 +19,6 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
     });
 
     const buttonAction = async (): Promise<void> => {
-        console.log("testing button")
         const writeExercise: Response = await fetch(
             "/api/createExerciseType",
             {
@@ -28,7 +27,6 @@ export const ExerciseTypeEditCreate: FC<Props > = ({ submitCounterFunction, musc
             }
         );
         const writtenExerciseType = await writeExercise.json();
-        console.log({writtenExerciseType});
         if(!!writtenExerciseType){
             setEditedExerciseType({
                 name: "",

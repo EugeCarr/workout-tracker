@@ -36,7 +36,6 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
     };
 
     const buttonAction = async (): Promise<void> => {
-        console.log("testing button for modal")
         let url = "";
         let actionMethod = ""
         if(!editedExercise?.id){
@@ -46,15 +45,12 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
             url = `/api/updateSessionExercise/${editedExercise.id}`;
             actionMethod = "PUT";
         }
-        console.log({url, actionMethod})
-        console.log(editedExercise)
         const requestExercise = {
             sets: editedExercise.sets,
             reps: editedExercise.reps,
             session_id: session_id,
             type_id: editedExercise.type_id,
         }
-        console.log({requestSession: requestExercise})
         const writeExercise: Response = await fetch(
             url,
             {
@@ -63,7 +59,6 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
             }
         );
         const writtenExercise = await writeExercise.json();
-        console.log({writtenExercise});
         if(!!writtenExercise){
             setUpdateCounter();
             closeModal();
@@ -71,7 +66,6 @@ export const SessionExerciseModal: FC<Props> = ({exercise, closeModal, setUpdate
         return 
     };
 
-    console.log({editedExercise})
     return (
         <div
             className="modal-container"

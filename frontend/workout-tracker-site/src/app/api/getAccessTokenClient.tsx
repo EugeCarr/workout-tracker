@@ -10,7 +10,6 @@ export const getAccessTokenClient = async () : Promise<string| undefined> => {
     const refreshToken: (string| undefined)  = getCookie("refreshToken");
     let accessToken: (string| undefined)  = getCookie("authToken");
     const FIVE_MINS_TIME = getTokenExpiryTime();
-    console.log({refreshToken, accessToken})
     if (!accessToken){
         // console.log("refreshing access token")
         const newAccessToken: string = await getRefreshedAccessToken(refreshToken);

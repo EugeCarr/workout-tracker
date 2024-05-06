@@ -16,7 +16,6 @@ interface Props {
 }
 
 export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSelectedSession, sessionsUpdatedCounter, setSelectedViewSession, selectedViewSession, setIsSessDeleteModalOpen, setSelectedDeleteSession}): React.ReactNode => {
-    console.log({workoutPlanId})
     const [listSessions, SetListSessions] = useState<session[]>([] as session[]);
 
     useEffect(
@@ -43,7 +42,6 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
 
     const editSession = (session_id: number): void => {
         const selectSession = listSessions.find((sess)=> sess.id === session_id) || {} as session
-        console.log(selectSession)
         setSelectedSession(selectSession);
         setIsModalOpen(true);
         
@@ -52,12 +50,10 @@ export const SessionTable: FC<Props > = ({ workoutPlanId, setIsModalOpen, setSel
 
     const viewSession = (session_id: number): void => {
         if(session_id === selectedViewSession?.id){
-            console.log("already selected")
             setSelectedViewSession({} as session);
             return 
         }
         const selectViewSession = listSessions.find((sess)=> sess.id === session_id) || {} as session
-        console.log({selectViewSession})
         setSelectedViewSession(selectViewSession);        
         return 
     }

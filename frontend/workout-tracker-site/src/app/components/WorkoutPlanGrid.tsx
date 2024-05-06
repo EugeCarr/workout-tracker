@@ -52,7 +52,6 @@ export const WorkoutPlanGrid = (): React.ReactNode => {
     useEffect(
         () => {
             const getWPlans = async (): Promise<void> => {
-                console.log("Getting current plans")
                 const queriedPlan = await fetch(
                     `/api/getWorkoutPlans`
                 );                
