@@ -24,7 +24,7 @@ export const MainpageCard: FC<mainPageCardDetails> = ({
                     paddingLeft:"2rem",
                     paddingRight:"2rem",
                     width:"20rem",
-                    margin:"5rem",
+                    margin:"2rem",
                 }}
                 className="link-card"
             >

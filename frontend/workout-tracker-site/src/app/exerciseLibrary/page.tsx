@@ -9,8 +9,9 @@ const WorkoutPlans = (): React.ReactNode => {
     return (
         <div
                 style={{
-                    height: "100%"
+                    height: "auto"
                 }}
+                id="full"
             >
                 <ExerciseTypeGrid/>
             </div>

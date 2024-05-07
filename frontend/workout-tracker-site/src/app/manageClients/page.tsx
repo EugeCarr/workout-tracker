@@ -15,6 +15,7 @@ const ClientUserPage: FC = (): React.ReactNode => {
                     // width: "80vw",
                     justifyContent: "center",
                 }}
+                id="full"
             >
                 <ClientUserCreate counterFunction={()=> setSubmitCounter(submitCounter + 1)}/>
                 <ClientUserTable counter={submitCounter}/>

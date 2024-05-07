@@ -4,8 +4,8 @@ export const ADD_USER_TO_TRAINERS = "/api/users/add-to-trainers/"
 
 export const SITE_DOMAIN_NAME = process.env.SITE_PUBLIC_DOMAIN_URL;
 
-// export const BACKEND_DOMAIN_NAME = "http://127.0.0.1:8000";
-export const BACKEND_DOMAIN_NAME = "https://workout-tracker-backend-02-iaqmiwc3pa-nw.a.run.app";
+export const BACKEND_DOMAIN_NAME = "http://127.0.0.1:8000";
+// export const BACKEND_DOMAIN_NAME = "https://workout-tracker-backend-02-iaqmiwc3pa-nw.a.run.app";
 
 export const GET_TOKEN_ENDPOINT = "/api/token/";
 

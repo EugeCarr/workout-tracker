@@ -37,6 +37,7 @@ const Home = () => {
         alignItems: "start",
         justifyContent: "space-between",
       }}
+      id="full"
     >
       <MainpageCard
         title="Workout Plans"

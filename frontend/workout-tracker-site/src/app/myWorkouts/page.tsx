@@ -8,6 +8,7 @@ const WorkoutPlans = async (): Promise<any> => {
                 style={{
                     height: "100%"
                 }}
+                id="full"
             >
                 <WorkoutPlanGrid />
             </div>
