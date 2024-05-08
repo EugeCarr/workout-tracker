@@ -72,6 +72,7 @@ const ViewWorkoutPlan: FC<Props> = ({params}) => {
                     flexDirection: "column",
                     alignItems: "center"
                 }}
+                id="full"
                 >
                     <SessionTable 
                         workoutPlanId={workout_id || 0}
